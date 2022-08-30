@@ -1,0 +1,47 @@
+.container{
+  overflow: hidden;
+}
+
+.content{
+  display:flex;
+  transition: transform .3s ease;
+}
+
+.item{
+  flex-shrink: 0;
+  color: black;
+  width: 80%;
+  margin: 0 10%;
+  padding: 2rem 0;
+  border-radius: 4px;
+  text-align: center;
+  position: relative;
+  background-color: #121212;
+}
+
+.nav{
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem auto;
+  width: 80%;
+  
+}
+.nav button{
+  background: #f7d354;
+  border-radius: .4rem;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item .img{
+  height: 400px;
+  width: 300px;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: .4rem;
+  padding: 1rem;
+  background-size: cover;
+  background-repeat: no-repeat;
+}

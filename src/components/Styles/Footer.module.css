@@ -1,0 +1,22 @@
+.footerContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(247, 212, 85);
+  
+}
+
+
+
+.footerContent{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .3rem;
+  padding-block: 4rem;
+  color: black;
+}
+
+.footerContent svg{
+  font-size: 1.2rem;
+}

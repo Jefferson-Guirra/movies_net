@@ -1,0 +1,138 @@
+.navBar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #121212;
+
+}
+.title{
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.navBar .form{
+  position: absolute;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+  top: 3.8rem;
+  left: 70%;
+  width: 30%;
+  height: 100vh;
+  background-color: #121212;
+  transition: .5s;
+  pointer-events: none;
+  flex-shrink: 1;
+}
+
+.form.visibility{
+  pointer-events: initial;
+  transform: initial;
+  opacity: initial;
+}
+
+.search{
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+}
+
+.search a{
+  align-self: flex-start;
+  justify-self: flex-start;
+}
+.navBar input{
+  padding: .5rem .8rem;
+  border-radius: 4px;
+  border: none;
+  margin-right: .5rem;
+  width: 13rem;
+}
+.navBar .form button{
+  background-color: #f7d354;
+  border:2px solid #f7d354;
+  border-radius: 4px;
+  color: #000000;
+  padding: .3rem;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: .4s;
+}
+
+.navBar .form button:hover{
+  background-color: transparent;
+  color: #f7d354;
+}
+.menu{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  gap: .5rem;
+}
+.hamburguer{
+  display: block;
+  width: 27px;
+  border-top: 2px solid white;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.hamburguer::before,
+.hamburguer::after{
+content: '';
+display: block;
+width: 27px;
+height: 2px;
+background-color: white;
+margin-top: .4rem;
+transition: .5s;
+}
+
+
+.menu.active .hamburguer{
+  border-top: none;
+}
+
+.menu.active .hamburguer::before{
+  position: relative;
+  top: 3.2px;
+  transform: rotate(35deg);
+}
+
+.menu.active .hamburguer::after{
+  position: relative;
+  top: -5px;
+  transform: rotate(-35deg);
+}
+
+@media (max-width:800px){
+  .navBar .form{
+    left: 50%;
+    width: 50%;
+  }
+  .form.visibility{
+    transform: initial;
+    opacity: initial;
+  }
+  .form input{
+    width: 100%;
+    padding: .5rem;
+  }
+  .form button svg{
+   font-size: 1.2rem;
+  }
+
+}
