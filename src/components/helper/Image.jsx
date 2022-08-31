@@ -8,8 +8,9 @@ const Image = (props) => {
     setSkeleton(false)
     event.target.style.opacity = 1
   }
+
   return (
-    <div className={styles.warapper}>
+    <div className={props.overflow === 'true' ?styles.wrapper : styles.wrapperNoneOverflow}>
       {skeleton && <div className={styles.skeleton}></div>}
       <img className={styles.img} onLoad={handleOnload} src="" alt="" {...props} />
 

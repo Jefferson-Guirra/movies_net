@@ -9,6 +9,7 @@ import Footer from './components/Footer'
 import Recommended from './pages/Recommended'
 import Releases from './pages/Releases'
 import SimilarMovies from './pages/SimilarMovies'
+import TopMovies from './pages/TopMovies'
 
 function App() {
   const [control, setControl] = useState('')
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="movie/:id" element={<Movie />} />
+        <Route path='top-movies' element={ <TopMovies />}/>
         <Route path="search" element={<Search control={control} />} />
         <Route path="recommended" element={<Recommended />} />
         <Route path="releases" element={<Releases />} />
