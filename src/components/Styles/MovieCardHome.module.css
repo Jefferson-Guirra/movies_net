@@ -1,5 +1,4 @@
 .container{
-  margin-top: 2rem;
   padding-inline: 32px;
 }
 
@@ -21,23 +20,16 @@
   font-weight: bold;
 }
 
-.header a:hover{
+.header a:hover {
   background-color: #f7d354;
-  color: black;
-
-}
-.container h2{
-  border-left: 3px solid #f7d354;
-  padding-left: 0.5rem;
-  transition: 1s;
+  color: #000000;
+  
 }
 
-.container h2:hover{
-  border-left: 3px solid #eee;
-}
+
 .cards{
   display: grid;
-  padding-block: 1.5rem;
+  padding-block: .8rem;
   width: 100%;
   grid-template-columns: minmax(100px,200px) minmax(100px,200px) minmax(100px,200px) minmax(100px,200px) minmax(100px,200px);
   justify-content: center;

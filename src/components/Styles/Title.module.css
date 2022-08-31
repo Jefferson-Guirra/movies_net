@@ -1,0 +1,26 @@
+.container .title{
+  border-left: 3px solid #f7d354;
+  padding-left: 0.5rem;
+  transition: 1s;
+  width: fit-content;
+  cursor: pointer;
+  
+}
+
+.container .title:hover{
+  border-left: 3px solid #eee;
+}
+
+.container a{
+  background-color: initial;
+  border: initial;
+  color: #eee;
+  transition: initial;
+  margin: initial;
+}
+
+.container a:hover{
+  background: initial;
+  border: initial;
+  color: #f7d354;
+}

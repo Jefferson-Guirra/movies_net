@@ -31,14 +31,14 @@ const Releases = () => {
       getNewMovie(apiKey, page.current)
       setTimeout(() => {
         movies ? window.scrollTo(0, 0) : ''
-      }, 150)
+      }, 200)
     } else {
       if (page.current > 1) {
         page.current = page.current - 1
         getNewMovie(apiKey, page.current)
         setTimeout(() => {
           movies ? window.scrollTo(0, 0) : ''
-        }, 150)
+        }, 200)
       }
     }
   }

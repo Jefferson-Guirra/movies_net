@@ -4,7 +4,7 @@ import CreateAsyncSlice from "./helper/CreateAsyncSlice";
 
 const slice = CreateAsyncSlice({
   name:'searchMovie',
-  fetchConfig:({apiKey,query})=> SEARCH_MOVIE(apiKey,query)
+  fetchConfig:({key,query})=> SEARCH_MOVIE(apiKey,query)
 })
 
 export const fetchSearch = slice.asynAction

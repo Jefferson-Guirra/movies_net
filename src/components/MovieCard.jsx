@@ -13,7 +13,7 @@ const MovieCard = ({ data, showLink = true }) => {
           <div key={movie.id}>
             <div className={styles.contentCard}>
               <Image overflow={overflow} src={imageUrl + movie.poster_path} alt={movie.title}/>
-              <h3 style={{ marginTop: '.5rem' }}>{movie.title}</h3>
+              <h3 style={{ marginTop: '.5rem'}}>{movie.title}</h3>
               <p>
                 {' '}
                 <FaStar /> {movie.vote_average}

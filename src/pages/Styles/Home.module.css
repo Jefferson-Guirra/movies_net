@@ -2,3 +2,33 @@
   max-width: 1200px;
   margin: 0 auto;
 }
+.container .rotaLink{
+  padding-inline: 32px;
+  position: absolute;
+  z-index: 10;
+}
+.container .rotaLink h2{
+  border-left: 3px solid #f7d354;
+  padding-left: 0.5rem;
+  transition: 1s;
+  color: white;
+  
+}
+
+.container .rotaLink h2:hover{
+  border-left: 3px solid #eee;
+  color: #f7d354;
+}
+
+.container .title a{
+  background-color: initial;
+  border: initial;
+  color: #eee;
+  transition: initial;
+}
+
+.container .title a:hover{
+  background: initial;
+  border: initial;
+  color:initial;
+}

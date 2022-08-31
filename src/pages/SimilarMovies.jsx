@@ -8,7 +8,7 @@ const apiKey = import.meta.env.VITE_API_KEY
 
 const SimilarMovies = () => {
   const { id } = useParams()
-  const page = useRef(1)
+  const page = useRef(2)
   const [movies, setMovies] = useState('')
   const [movieTitle, setMovieTitle] = useState('')
   let wait = false
@@ -29,7 +29,7 @@ const SimilarMovies = () => {
 
   useEffect(() => {
     if (!wait) {
-      getSimilarMovies(apiKey, 1, id)
+      getSimilarMovies(apiKey, 2, id)
       window.scrollTo(0, 0)
       getMovieTitle(apiKey, id)
     }
@@ -37,14 +37,14 @@ const SimilarMovies = () => {
   }, [])
 
   function handleClick(event) {
-    if (event.target.value === 'next') {
+    if (event.target.value === 'next' && page.current < data.total_pages) {
       page.current = page.current + 1
       getSimilarMovies(apiKey, page.current, id)
       setTimeout(() => {
         movies ? window.scrollTo(0, 0) : ''
       }, 150)
     } else {
-      if (page.current > 1) {
+      if ( event.target.value === 'prev' && page.current > 2) {
         page.current = page.current - 1
         getSimilarMovies(apiKey, page.current, id)
         setTimeout(() => {

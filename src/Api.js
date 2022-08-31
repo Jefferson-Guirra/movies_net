@@ -1,9 +1,9 @@
 const URL_API = import.meta.env.VITE_API
 const SEARCH_URL = import.meta.env.VITE_SEARCH
 
-export function TOP_RATED_MOVIES(key, page = 1){
+export function TOP_RATED_MOVIES(apiKey, page = 1){
   return{
-    url:`${URL_API}top_rated?${key}&language=pt-BR&page=${page}`
+    url:`${URL_API}top_rated?${apiKey}&language=pt-BR&page=${page}`
   }
 
 }
