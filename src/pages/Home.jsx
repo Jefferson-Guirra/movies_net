@@ -8,26 +8,31 @@ import Slider from '../components/Slider'
 import { fetchPopularMovies } from '../store/popularMovies'
 import Image from '../components/helper/Image'
 import MovieCardHome from '../components/MovieCardHome'
+import { useRef } from 'react'
 const apiKey = import.meta.env.VITE_API_KEY
 const imageUrl = import.meta.env.VITE_IMG
 const Home = () => {
-  const {popularMovies} = useSelector((state)=>state)
+  const {popularMovies, topRatedMovies} = useSelector((state)=>state)
   const dispatch = useDispatch()
-  const overflow = 'true'
-
+  const overflow = 'false'
+  const wait = useRef(false)
+  
   const getPopularMovies = () =>{
     dispatch(fetchPopularMovies({key:apiKey,page:1}))
   }
-  const {loading,data} = popularMovies
+  const {loading, data} = popularMovies
+
   useEffect(()=>{
-    getPopularMovies(apiKey)
+      if(!wait.current){
+      getPopularMovies(apiKey)
+      }
+      wait.current = true
   },[])
   const settings = {
-    spaceBetween: 50,
-    slidesPerView: 5,
+    spaceBetween: window.innerWidth > 700 ? 50 :30,
+    slidesPerView: window.innerWidth > 700 ? 5 : 4,
   }
 
-  
   if(loading) return <Loading />
   if(data) return (
     <div className={styles.container}>
@@ -43,6 +48,7 @@ const Home = () => {
       <MovieCardHome title={`Melhores filmes`} />
     </div>
   )
+  else return null
 }
 
 export default Home

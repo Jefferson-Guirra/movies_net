@@ -26,13 +26,13 @@
   color: black;
 
 }
-.container h3{
+.container h2{
   border-left: 3px solid #f7d354;
   padding-left: 0.5rem;
   transition: 1s;
 }
 
-.container h3:hover{
+.container h2:hover{
   border-left: 3px solid #eee;
 }
 .cards{
@@ -48,11 +48,11 @@
 
 .cards img{
   position: relative;
-  border-radius: 10px;
+  border-radius: 5px;
   transition: 1s;
 }
 .cards img:hover{
-  border-radius: 10px;
+  border-radius: 5px;
   transform: scale(1.1);
 }
 
@@ -60,6 +60,7 @@
 @media (max-width:60rem){
   .cards{
     grid-template-columns: minmax(100px,200px) minmax(100px,200px) minmax(100px,200px);
+    gap: 1rem;
   }
 }
 

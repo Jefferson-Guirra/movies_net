@@ -31,7 +31,7 @@ const NavBar = ({ setControl }) => {
   function handleMenu(event) {
     setMenu(menu => !menu)
   }
-  console.log(window.scrollY)
+
   return (
     <nav id="navbar" className={styles.navBar}>
       <h2>

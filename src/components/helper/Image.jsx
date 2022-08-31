@@ -12,7 +12,7 @@ const Image = (props) => {
   return (
     <div className={props.overflow === 'true' ?styles.wrapper : styles.wrapperNoneOverflow}>
       {skeleton && <div className={styles.skeleton}></div>}
-      <img className={styles.img} onLoad={handleOnload} src="" alt="" {...props} />
+      <img className={props.overflow === 'true' ? styles.img : `${styles.img} ${styles.animated}`} onLoad={handleOnload} src="" alt="" {...props} />
 
     </div>
   )

@@ -4,20 +4,25 @@ import { Link } from 'react-router-dom'
 import styles from './Styles/MovieCardHome.module.css'
 import { topMovies } from '../store/topRatedMovies'
 import Image from './helper/Image'
+import { useRef } from 'react'
 const key = import.meta.env.VITE_API_KEY
 const MovieCardHome = ({ title }) => {
   const store = useSelector(state => state)
   const imageUrl = import.meta.env.VITE_IMG
   const dispatch = useDispatch()
   const overflow = 'false'
+  let wait = useRef(false)
   useEffect(() => {
-    dispatch(topMovies({ key, page: 1 }))
+    if(!wait.current){
+      dispatch(topMovies({ key, page: 1 }))
+    }
+    wait.current = true
   }, [])
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h3>{title}</h3>
+        <h2>{title}</h2>
         <Link to='/top-movies'>veja mais...</Link>
       </div>
       <div className={styles.cards}>
