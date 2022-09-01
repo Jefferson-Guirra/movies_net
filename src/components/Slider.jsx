@@ -1,5 +1,4 @@
 import { Swiper} from 'swiper/react'
-import { Navigation, Pagination, A11y } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
@@ -9,7 +8,7 @@ export default function Slider({ children, settings}) {
 
 
   return (
-    <Swiper modules={[Navigation, Pagination, A11y]} {...settings}>
+    <Swiper  {...settings}>
       {children}
     </Swiper>
   )

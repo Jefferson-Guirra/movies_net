@@ -8,23 +8,29 @@
 }
 
 .item{
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
   color: black;
-  width: 80%;
-  margin: 0 10%;
-  padding: 2rem 0;
-  border-radius: 4px;
-  text-align: center;
+  width: 30%;
+  padding: 1rem;
+  margin-right: 1.8rem;
   position: relative;
-  background-color: #121212;
+  border-radius: 4px;
+  background-color: #141414;
 }
 
 .nav{
   display: flex;
   justify-content: space-between;
   margin: 1rem auto;
-  width: 80%;
+  width: 95%;
   
+}
+
+.nav button:nth-child(1){
+  margin-left: -2%;
 }
 .nav button{
   background: #f7d354;
@@ -35,13 +41,6 @@
   justify-content: center;
 }
 
-.item .img{
-  height: 400px;
-  width: 300px;
-  display: inline-block;
-  overflow: hidden;
-  border-radius: .4rem;
-  padding: 1rem;
-  background-size: cover;
-  background-repeat: no-repeat;
+.img img{
+  border-radius: .5rem;
 }

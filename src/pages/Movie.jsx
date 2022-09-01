@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import styles from './Styles/Movie.module.css'
 import Loading from '../components/Loading'
-import { COMMENTS_MOVIE } from '../Api'
 import { TbMovie } from 'react-icons/tb'
+import Image from '../components/helper/Image'
 import {
   BsGraphUp,
   BsWallet2,
@@ -21,7 +21,6 @@ const imageUrl = import.meta.env.VITE_IMG
 const Movie = () => {
   const [movie, setMovie] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [comments, setComents] = useState('')
   const { id } = useParams()
 
   const getMovie = async url => {
@@ -31,16 +30,11 @@ const Movie = () => {
     setMovie(data)
     setLoading(false)
   }
-  const getComments = async (apiKey, id) => {
-    const { url } = COMMENTS_MOVIE(apiKey, id)
-    const response = await fetch(url)
-    const comments = await response.json()
-    setComents(comments)
-  }
+
   useEffect(() => {
     const movieUrl = `${moviesUrl}${id}?${apiKey}&language=pt-BR`
     getMovie(movieUrl)
-    getComments(apiKey, id)
+    
   }, [id])
 
   const formatCurrency = number => {
@@ -49,38 +43,46 @@ const Movie = () => {
       currency: 'USD'
     })
   }
+  console.log(movie)
   if (loading) return <Loading />
   if (movie)
     return (
       <div className={styles.movieContainer}>
-        <img src={imageUrl + movie.poster_path} alt={movie.title} />
+        <div className={styles.header}>
+          <Image src={imageUrl + movie.poster_path} alt={movie.title} />
 
-        <h3 className={styles.movieTitle}>{movie.title}</h3>
-        <p className={styles.movieStar}>
-          {' '}
-          <FaStar /> {movie.vote_average}
-        </p>
+          <div className={styles.contentHeader}>
+            <h2>{movie.title}</h2>
+            <p className={styles.movieStar}>
+              {' '}
+              <FaStar /> {movie.vote_average}
+            </p>
+            <div className={styles.genres}>
+              {movie.genres.map(genre => (
+                <div>{genre.name}</div>
+              ))}
+            </div>
 
-        <p className={styles.tagline}>{movie.tagline}</p>
-        <div className={styles.info}>
-          <h3>
-            <BsWallet2 /> Orçamento:
-          </h3>
-          <p>{formatCurrency(movie.budget)}</p>
-        </div>
+            <div className={styles.info}>
+              <h3>
+                <BsWallet2 /> Orçamento:
+              </h3>
+              <p>{formatCurrency(movie.budget)}</p>
+            </div>
 
-        <div className={styles.info}>
-          <h3>
-            <BsGraphUp /> Receita:
-          </h3>
-          <p>{formatCurrency(movie.revenue)}</p>
-        </div>
-
-        <div className={styles.info}>
-          <h3>
-            <BsHourglassSplit /> Duração:
-          </h3>
-          <p>{movie.runtime} minutos</p>
+            <div className={styles.info}>
+              <h3>
+                <BsGraphUp /> Receita:
+              </h3>
+              <p>{formatCurrency(movie.revenue)}</p>
+            </div>
+            <div className={styles.info}>
+              <h3>
+                <BsHourglassSplit /> Duração:
+              </h3>
+              <p>{movie.runtime} minutos</p>
+            </div>
+          </div>
         </div>
 
         <div className={styles.infoDescription}>
@@ -89,7 +91,7 @@ const Movie = () => {
           </h3>
           <p>{movie.overview}</p>
         </div>
-        <div className={styles.info}>
+        <div style={{ marginBottom: '1rem' }} className={styles.info}>
           <h3>
             <TbMovie />{' '}
             <Link to={`/similar-movies/${id}`}>
@@ -97,15 +99,15 @@ const Movie = () => {
             </Link>
           </h3>
         </div>
-        <div className={styles.info}>
-          <Slide id={id} apiKey={apiKey} />
-        </div>
+
+        <Slide id={id} apiKey={apiKey} />
+
         <div className={styles.info}>
           <h3>
             <FaRegComments /> Comentários:
           </h3>
         </div>
-        {comments && <Comments data={comments.results} />}
+        <Comments id={movie.id} />
         <p className={styles.backTop} onClick={() => window.scrollTo(0, 0)}>
           voltar ao topo
         </p>

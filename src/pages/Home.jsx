@@ -18,20 +18,15 @@ const Home = () => {
   const dispatch = useDispatch()
   const overflow = 'false'
   const wait = useRef(false)
-
-
-  
-
-
   const getPopularMovies = () => {
     dispatch(fetchPopularMovies({ apiKey, page: 1 }))
   }
   const { loading, data } = popularMovies
 
-    const settings = {
-      spaceBetween: 30,
-      slidesPerView:  3.2
-    }
+  const settings = {
+    spaceBetween: 30,
+    slidesPerView:  3.2
+  }
 
   useEffect(() => {
     cardsHome = [

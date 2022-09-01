@@ -15,14 +15,13 @@
   color: white;
   display: -webkit-box;
   position: absolute;
-  font-size: .9rem;
   top: 100%;
   -webkit-line-clamp: 1; /** número de linhas que você quer exibir */
-  width: 75%;
   z-index: 50;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  
 }
 
 

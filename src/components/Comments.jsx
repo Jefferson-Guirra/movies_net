@@ -1,15 +1,30 @@
 import React from 'react'
+import { COMMENTS_MOVIE } from '../Api'
+import { useState } from 'react'
 import styles from './Styles/Comments.module.css'
 const imageUrl = import.meta.env.VITE_IMG
 import userNotFound from '../assets/userNotFound.png'
 import { HiOutlineEmojiSad } from 'react-icons/hi'
-const Comments = ({ data }) => {
+import { useEffect } from 'react'
+const apiKey = import.meta.env.VITE_API_KEY
+const Comments = ({ id }) => {
   const regex = /T\d{2}:\d{2}:\d{2}.\d+\D/g
+  const [comments, setComents] = useState('')
 
-  if (data.length)
+  const getComments = async (apiKey, id) => {
+    const { url } = COMMENTS_MOVIE(apiKey, id)
+    const response = await fetch(url)
+    const comments = await response.json()
+    setComents(comments)
+  }
+  useEffect(()=>{
+    getComments(apiKey,id)
+  })
+  
+  if (comments.results)
     return (
       <div className={styles.commentsContainer}>
-        {data.map(user => (
+        {comments.results.map(user => (
           <div className={styles.contentComments} key={user.id}>
             <div className={styles.img}>
               <img
