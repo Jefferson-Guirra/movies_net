@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect,useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux/es/exports'
 import styles from './Styles/Home.module.css'
 import { Link } from 'react-router-dom'
@@ -8,22 +8,30 @@ import Slider from '../components/Slider'
 import { fetchPopularMovies } from '../store/popularMovies'
 import Image from '../components/helper/Image'
 import MovieCardHome from '../components/MovieCardHome'
-import { useRef } from 'react'
 
 const apiKey = import.meta.env.VITE_API_KEY
 const imageUrl = import.meta.env.VITE_IMG
 let cardsHome
 
 const Home = () => {
-  const { popularMovies} = useSelector(state => state)
+  const { popularMovies } = useSelector(state => state)
   const dispatch = useDispatch()
   const overflow = 'false'
   const wait = useRef(false)
+
+
+  
+
 
   const getPopularMovies = () => {
     dispatch(fetchPopularMovies({ apiKey, page: 1 }))
   }
   const { loading, data } = popularMovies
+
+    const settings = {
+      spaceBetween: 30,
+      slidesPerView:  3.2
+    }
 
   useEffect(() => {
     cardsHome = [
@@ -35,10 +43,8 @@ const Home = () => {
     }
     wait.current === true
   }, [])
-  const settings = {
-    spaceBetween: window.innerWidth > 700 ? 50 : 30,
-    slidesPerView: window.innerWidth > 700 ? 5 : 4
-  }
+
+
 
   if (loading) return <Loading />
   if (data?.results)

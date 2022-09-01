@@ -57,7 +57,7 @@
   display: -webkit-box;
 -webkit-line-clamp: 1; /** número de linhas que você quer exibir */
 position: relative;
-width: 75%;
+font-size: .9rem;
 z-index: 2;
 color: white;
 -webkit-box-orient: vertical;

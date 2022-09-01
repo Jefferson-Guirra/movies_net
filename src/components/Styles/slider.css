@@ -1,5 +1,5 @@
 .swiper{
-  padding: 32px 32px 32px 32px;
+  padding: 32px;
   margin-top: 5rem;
 
 }
@@ -10,6 +10,7 @@
   margin-bottom: 0;
   border-radius: 4px;
 }
+
 .swiper-slide .text{
   color: white;
   display: -webkit-box;
@@ -17,8 +18,8 @@
   font-size: .9rem;
   top: 100%;
   -webkit-line-clamp: 1; /** número de linhas que você quer exibir */
-  z-index: 50;
   width: 75%;
+  z-index: 50;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
