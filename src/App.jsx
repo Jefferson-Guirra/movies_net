@@ -21,7 +21,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="movie/:id" element={<Movie />} />
         <Route path='top-movies' element={ <TopMovies />}/>
-        <Route path="search" element={<Search control={control} />} />
+        <Route path="search" element={<Search  />} />
         <Route path="recommended" element={<Recommended />} />
         <Route path="releases" element={<Releases />} />
         <Route path="similar-movies/:id" element={<SimilarMovies />} />

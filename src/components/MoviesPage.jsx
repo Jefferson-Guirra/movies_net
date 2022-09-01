@@ -14,7 +14,7 @@ const MoviesPage = ({data,loading,handleClick}) => {
         <MovieCard data={data} />
         <div className={styles.buttons}>
           <button value="prev" onClick={(event)=>handleClick(event.target.value)}>
-            next
+            prev
           </button>
           <button value="next" onClick={(event)=>handleClick(event.target.value)}>
             next

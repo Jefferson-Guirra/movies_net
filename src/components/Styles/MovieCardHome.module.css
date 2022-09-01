@@ -1,5 +1,6 @@
 .container{
   padding-inline: 32px;
+
 }
 
 
@@ -7,6 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 3rem;
 }
 .header a{
   background-color: black;
@@ -18,6 +20,7 @@
   transition: .5s;
   text-align: center;
   font-weight: bold;
+  
 }
 
 .header a:hover {
@@ -30,6 +33,7 @@
 .cards{
   display: grid;
   padding-block: .8rem;
+  margin-bottom: 2rem;
   width: 100%;
   grid-template-columns: minmax(100px,200px) minmax(100px,200px) minmax(100px,200px) minmax(100px,200px) minmax(100px,200px);
   justify-content: center;
@@ -49,6 +53,17 @@
 }
 
 
+.titleMovie{
+  display: -webkit-box;
+-webkit-line-clamp: 1; /** número de linhas que você quer exibir */
+position: relative;
+width: 75%;
+z-index: 2;
+color: white;
+-webkit-box-orient: vertical;
+overflow: hidden;
+text-overflow: ellipsis;
+}
 @media (max-width:60rem){
   .cards{
     grid-template-columns: minmax(100px,200px) minmax(100px,200px) minmax(100px,200px);

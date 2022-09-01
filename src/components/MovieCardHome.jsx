@@ -16,32 +16,34 @@ const MovieCardHome = ({ title, rota, content }) => {
   const overflow = 'false'
 
   let wait = useRef(false)
-  console.log(store.topRatedMovies)
   useEffect(() => {
     if (!wait.current) {
-      content === 'topFilmes'
+      content === 'newMovies'
         ? dispatch(topMovies({ key: apikey, page: 1 }))
         : dispatch(getNewMovies({keyMovie: apikey, page:1}))
     }
     wait.current = true
   })
 
-  if (content === 'topFilmes' && store.topRatedMovies.data)
+  if (content === 'topMovies' && store.topRatedMovies.data)
     return (
       <div className={styles.container}>
         <div className={styles.header}>
           <Title rota={rota} title={title} />
-          <Link to={`/${rota}`}>veja mais...</Link>
+          <Link to={rota}>veja mais...</Link>
         </div>
         <div className={styles.cards}>
           {store.topRatedMovies.data.results.map(item => (
-            <div key={item.id}>
+            <div className={styles.card} key={item.id}>
               <Link to={`/movie/${item.id}`}>
                 <Image
                   overflow={overflow}
                   src={`${imageUrl}${item.poster_path}`}
                   alt=""
                 />
+                <div className={styles.titleMovie}>
+                  <p>{item.title}</p>
+                </div>
               </Link>
             </div>
           ))}
@@ -53,7 +55,7 @@ const MovieCardHome = ({ title, rota, content }) => {
         <div className={styles.container}>
           <div className={styles.header}>
             <Title rota={rota} title={title} />
-            <Link to={`/${rota}`}>veja mais...</Link>
+            <Link to={rota}>veja mais...</Link>
           </div>
           <div className={styles.cards}>
             {store.newMovies.data.results.map(item => (
@@ -64,6 +66,9 @@ const MovieCardHome = ({ title, rota, content }) => {
                     src={`${imageUrl}${item.poster_path}`}
                     alt=""
                   />
+                  <div className={styles.titleMovie}>
+                    <p>{item.title}</p>
+                  </div>
                 </Link>
               </div>
             ))}

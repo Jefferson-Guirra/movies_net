@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Title = ({title,rota}) => {
   return (
     <div className={styles.container}>
-      <Link to={`/${rota}`}>
+      <Link to={rota}>
         <h2 className={styles.title}>{title}</h2>
       </Link>
     </div>

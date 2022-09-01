@@ -8,9 +8,9 @@ export function TOP_RATED_MOVIES(apiKey, page = 1){
 
 }
 
-export function SEARCH_MOVIE(apiKey,query){
+export function SEARCH_MOVIE(apiKey,query,page){
   return{
-    url:`${SEARCH_URL}?${apiKey}&query=${query}&language=pt-BR`
+    url:`${SEARCH_URL}?${apiKey}&query=${query}&language=pt-BR&page=${page}`
   }
 }
 
@@ -30,8 +30,8 @@ export function RECOMMENDED_MOVIE(apiKey,page = 1){
   }
 
   export function NEW_MOVIES(apiKey,page = 1){
-    return{
-      url:`https://api.themoviedb.org/3/movie/now_playing?${apiKey}&page=${page}`
+    return {
+      url: `https://api.themoviedb.org/3/movie/now_playing?${apiKey}&language=pt-BR&page=${page}`
     }
   }
 

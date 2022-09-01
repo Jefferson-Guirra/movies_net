@@ -10,6 +10,19 @@
   margin-bottom: 0;
   border-radius: 4px;
 }
+.swiper-slide .text{
+  color: white;
+  display: -webkit-box;
+  position: absolute;
+  font-size: .9rem;
+  top: 100%;
+  -webkit-line-clamp: 1; /** número de linhas que você quer exibir */
+  z-index: 50;
+  width: 75%;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 
 
