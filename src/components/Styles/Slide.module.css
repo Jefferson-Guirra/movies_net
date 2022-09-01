@@ -14,8 +14,8 @@
   flex-shrink: 0;
   color: black;
   width: 30%;
-  padding: 1rem;
-  margin-right: 1.8rem;
+  padding: 3%;
+  margin-right: 4%;
   position: relative;
   border-radius: 4px;
   background-color: #141414;
@@ -23,7 +23,8 @@
 
 .nav{
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 25%;
   margin: 1rem auto;
   width: 95%;
   

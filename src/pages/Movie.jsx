@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import Trailer from '../components/Trailer'
 import styles from './Styles/Movie.module.css'
 import Loading from '../components/Loading'
 import { TbMovie } from 'react-icons/tb'
 import Image from '../components/helper/Image'
+
 import {
   BsGraphUp,
   BsWallet2,
@@ -14,6 +16,8 @@ import { FaStar, FaRegComments } from 'react-icons/fa'
 import Comments from '../components/Comments'
 import Slide from '../components/Slide'
 
+
+const regex =/\-\d{2}/g
 const moviesUrl = import.meta.env.VITE_API
 const apiKey = import.meta.env.VITE_API_KEY
 const imageUrl = import.meta.env.VITE_IMG
@@ -43,7 +47,7 @@ const Movie = () => {
       currency: 'USD'
     })
   }
-  console.log(movie)
+ 
   if (loading) return <Loading />
   if (movie)
     return (
@@ -52,14 +56,16 @@ const Movie = () => {
           <Image src={imageUrl + movie.poster_path} alt={movie.title} />
 
           <div className={styles.contentHeader}>
-            <h2>{movie.title}</h2>
+            <h3>{movie.title}</h3>
+            <p>{movie.tagline}</p>
+            <p>{movie.release_date.replace(regex, '')}</p>
             <p className={styles.movieStar}>
               {' '}
               <FaStar /> {movie.vote_average}
             </p>
             <div className={styles.genres}>
               {movie.genres.map(genre => (
-                <div>{genre.name}</div>
+                <div key={genre.name}>{genre.name}</div>
               ))}
             </div>
 
@@ -91,7 +97,11 @@ const Movie = () => {
           </h3>
           <p>{movie.overview}</p>
         </div>
-        <div style={{ marginBottom: '1rem' }} className={styles.info}>
+        <Trailer id={id} />
+        <div
+          style={{ marginBottom: '1rem', paddingInline: '1rem' }}
+          className={styles.info}
+        >
           <h3>
             <TbMovie />{' '}
             <Link to={`/similar-movies/${id}`}>
@@ -102,7 +112,10 @@ const Movie = () => {
 
         <Slide id={id} apiKey={apiKey} />
 
-        <div className={styles.info}>
+        <div
+          style={{ marginBottom: '1rem', paddingInline: '1rem' }}
+          className={styles.info}
+        >
           <h3>
             <FaRegComments /> Comentários:
           </h3>

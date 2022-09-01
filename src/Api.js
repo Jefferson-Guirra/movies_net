@@ -46,3 +46,9 @@ export function RECOMMENDED_MOVIE(apiKey,page = 1){
       url:`https://api.themoviedb.org/3/movie/${id}?${apiKey}&language=pt-BR`
     }
   }
+
+  export function GET_TRAILER(apikey,id){
+    return{
+      url:`${URL_API}/${id}/videos?${apikey}`
+    }
+  }

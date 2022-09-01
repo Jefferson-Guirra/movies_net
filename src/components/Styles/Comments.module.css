@@ -3,6 +3,7 @@
   flex-direction: column;
   background-color: #f7d354;
   color: black;
+  margin-inline: 1rem;
   border-radius: .4rem;
 }
 .contentComments{

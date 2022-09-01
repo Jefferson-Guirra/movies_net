@@ -12,13 +12,13 @@
 }
 
 .header{
+  margin-top: 2rem;
   display: grid;
-  gap: 1rem;
-  padding: 2rem;
-  margin-bottom: 1rem;
-  grid-template-columns: 1fr 1fr ;
+  gap: 2rem;
+  padding: 1rem 1rem 2rem 1rem;
+  margin-bottom: 2rem;
+  grid-template-columns: 40% 60% ;
   width: 100%;
-  background-color: black;
 }
 
 .contentHeader{
@@ -29,7 +29,8 @@
 
 .genres{
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 50% 50%;
+  padding-right: 2rem;
   gap: .5rem;
 }
 .genres div{
@@ -38,15 +39,13 @@
   text-align: center;
   justify-content: center;
   background-color:#121212;
-  padding: .5rem .7rem;
+  padding: .4rem .7rem;
   border-radius: .4rem;
   border: 1px solid #f7d354 ;
   pointer-events: none;
 }
 
-.contentHeader img:hover{
-  transform: initial;
-}
+
 
 .movieStar{
   text-align: center;
@@ -60,9 +59,15 @@
 
 
 .info{
-  padding-top: 1rem;
+  padding-block: 1rem;
   display: flex;
+  text-align: left;
+  justify-content: flex-start;
   gap: .5rem;
+  border-bottom: 1px solid hsl(47, 91%, 65%,.2);
+}
+.info p{
+  display: flex;
   align-items: center;
 }
 
@@ -74,13 +79,22 @@
 .info a{
   color: white;
 }
-.infoDescription{
+.infoDescription {
   text-align: justify;
+  
   margin-bottom: 1rem;
 }
 .infoDescription p{
+  padding-inline: 1rem;
   line-height: 1.5rem;
+}
 
+.infoDescription h3{
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: 1rem;
+  border-bottom: 1px solid hsl(47, 91%, 65%,.2);
 }
 
 
@@ -96,8 +110,11 @@
   text-decoration: underline;
 }
 
-@media (max-width:600px){
-  .infoDescription p{
-    padding-right: .7rem;
+@media (max-width:40rem){
+  .info{
+    flex-direction: column;
+  }
+  .contentHeader .info{
+    margin-right: 2rem;
   }
 }
