@@ -1,4 +1,4 @@
-import { useEffect,useRef,useState } from 'react'
+import { useEffect,useRef,memo} from 'react'
 import { useSelector, useDispatch } from 'react-redux/es/exports'
 import styles from './Styles/Home.module.css'
 import { Link } from 'react-router-dom'
@@ -8,39 +8,50 @@ import Slider from '../components/Slider'
 import { fetchPopularMovies } from '../store/popularMovies'
 import Image from '../components/helper/Image'
 import MovieCardHome from '../components/MovieCardHome'
+import { getNewMovies } from '../store/newMovies'
+import { topMovies } from '../store/topRatedMovies'
 
 
 
 const apiKey = import.meta.env.VITE_API_KEY
 const imageUrl = import.meta.env.VITE_IMG
-let cardsHome
+
 
 const Home = () => {
   const { popularMovies } = useSelector(state => state)
+  const {loading, data} = popularMovies
   const dispatch = useDispatch()
   const overflow = 'false'
   const wait = useRef(false)
+   useEffect(() => {
+    if(wait.current){
+      return
+    }
+     if (!wait.current) {
 
+       getPopularMovies()
+     }
+     wait.current === true
+   }, [])
   const getPopularMovies = () => {
     dispatch(fetchPopularMovies({ apiKey, page: 1 }))
   }
-  const { loading, data } = popularMovies
+
+  const getNewMoviesData = ()=>{
+    dispatch(getNewMovies({keyMovie:apiKey,page:1}))
+  }
+  const getTopMoviesData = ()=>{
+    dispatch(topMovies({key:apiKey,page:1}))
+  }
+
+ 
 
   const settings = { //config swiper slide
     spaceBetween: 30,
     slidesPerView:  3.2
   }
 
-  useEffect(() => {
-    cardsHome = [
-      { title: 'Lançamentos', rota: '/releases', content: 'newMovies' },
-      { title: 'Melhores Filmes', rota: '/top-movies', content: 'topMovies' }
-    ]
-    if (!wait.current) {
-      getPopularMovies()
-    }
-    wait.current === true
-  }, [])
+ 
 
 
   if (loading) return <Loading />
@@ -74,18 +85,25 @@ const Home = () => {
           </Slider>
         )}
 
-        {cardsHome &&
-          cardsHome.map(item => (
-            <MovieCardHome
-              key={item.title}
-              content={item.content}
-              title={item.title}
-              rota={item.rota}
-            ></MovieCardHome>
-          ))}
+        {data && (
+          <MovieCardHome
+            handleDispatch={getNewMoviesData}
+            content={'newMovies'}
+            title={'lançamentos'}
+            rota={'/releases'}
+          ></MovieCardHome>
+        )}
+        {data && (
+          <MovieCardHome
+            handleDispatch={getTopMoviesData}
+            content={'topRatedMovies'}
+            title={'Melhores Filmes'}
+            rota={'/top-movies'}
+          ></MovieCardHome>
+        )}
       </div>
     )
   else return null
 }
 
-export default Home
+export default memo(Home)

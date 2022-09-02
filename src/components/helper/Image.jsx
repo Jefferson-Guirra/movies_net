@@ -5,7 +5,10 @@ import styles from './Styles/Image.module.css'
 const Image = (props) => {
   const [skeleton,setSkeleton] = useState(true)
   function handleOnload(event){
+    setTimeout(()=>{
     setSkeleton(false)
+
+    },1500)
     event.target.style.opacity = 1
   }
 

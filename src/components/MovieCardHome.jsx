@@ -11,22 +11,21 @@ import { IoIosArrowForward } from 'react-icons/io'
 const apikey = import.meta.env.VITE_API_KEY
 const imageUrl = import.meta.env.VITE_IMG
 
-const MovieCardHome = ({ title, rota, content }) => {
-  const store = useSelector(state => state)
+const MovieCardHome = ({ title, rota, content, handleDispatch }) => {
+  const {data} = useSelector(state => state[content])
   const dispatch = useDispatch()
   const overflow = 'false'
 
   let wait = useRef(false)
-  useEffect(() => {
-    if (!wait.current) {
-      content === 'newMovies'
-        ? dispatch(topMovies({ key: apikey, page: 1 }))
-        : dispatch(getNewMovies({keyMovie: apikey, page:1}))
+  useEffect(()=>{
+
+    if(!wait.current){
+      handleDispatch()
     }
     wait.current = true
-  })
-
-  if (content === 'topMovies' && store.topRatedMovies.data)
+  },[])
+  console.log(data)
+  if (data)
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -34,7 +33,7 @@ const MovieCardHome = ({ title, rota, content }) => {
           <Link to={rota}>veja mais <IoIosArrowForward /> </Link>
         </div>
         <div className={styles.cards}>
-          {store.topRatedMovies.data.results.map(item => (
+          {data.results.map(item => (
             <div className={styles.card} key={item.id}>
               <Link to={`/movie/${item.id}`}>
                 <Image
@@ -51,34 +50,9 @@ const MovieCardHome = ({ title, rota, content }) => {
         </div>
       </div>
     )
-  if (content === 'newMovies' && store.newMovies.data) {
-      return (
-        <div className={styles.container}>
-          <div className={styles.header}>
-            <Title rota={rota} title={title} />
-            <Link to={rota}>
-              veja mais <IoIosArrowForward />
-            </Link>
-          </div>
-          <div className={styles.cards}>
-            {store.newMovies.data.results.map(item => (
-              <div key={item.id}>
-                <Link to={`/movie/${item.id}`}>
-                  <Image
-                    overflow={overflow}
-                    src={`${imageUrl}${item.poster_path}`}
-                    alt=""
-                  />
-                  <div className={styles.titleMovie}>
-                    <p>{item.title}</p>
-                  </div>
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      )
-  } else return null
-}
+    return null
+  } 
+  
+
 
 export default memo(MovieCardHome)

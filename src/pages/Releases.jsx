@@ -8,7 +8,7 @@ const apiKey = import.meta.env.VITE_API_KEY
 const Releases = () => {
   const dispatch = useDispatch()
   const {data,loading,error} = useSelector(state=>state.newMovies)
-  const page = useRef(1)
+  const page = useRef(2)
   let wait = useRef(false)
 
   useEffect(() => {
