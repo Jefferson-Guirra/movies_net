@@ -1,6 +1,6 @@
 .navBar{
   position: fixed;
-  z-index: 500;
+  z-index: 200;
   top: 0;
   left: 0;
   width: 100%;
@@ -8,7 +8,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #000000;
+  background-color: rgb(0, 0, 0,.8);
+  backdrop-filter: blur(3px);
 
 }
 .title{
@@ -27,7 +28,8 @@
   left: 70%;
   width: 30%;
   height: 100vh;
-  background-color: #121212;
+  background-color: rgb(0, 0, 0,.8);
+  backdrop-filter: blur(2px);
   transition: .5s;
   pointer-events: none;
   flex-shrink: 1;

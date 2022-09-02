@@ -1,4 +1,4 @@
-import { useEffect,useRef } from 'react'
+import { useEffect,useRef,useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux/es/exports'
 import styles from './Styles/Home.module.css'
 import { Link } from 'react-router-dom'
@@ -8,22 +8,25 @@ import Slider from '../components/Slider'
 import { fetchPopularMovies } from '../store/popularMovies'
 import Image from '../components/helper/Image'
 import MovieCardHome from '../components/MovieCardHome'
+import ModalHome from '../components/ModalHome'
+
 
 const apiKey = import.meta.env.VITE_API_KEY
 const imageUrl = import.meta.env.VITE_IMG
 let cardsHome
 
 const Home = () => {
-  const { popularMovies } = useSelector(state => state)
+  const { popularMovies,modal } = useSelector(state => state)
   const dispatch = useDispatch()
   const overflow = 'false'
   const wait = useRef(false)
+
   const getPopularMovies = () => {
     dispatch(fetchPopularMovies({ apiKey, page: 1 }))
   }
   const { loading, data } = popularMovies
 
-  const settings = {
+  const settings = { //config swiper slide
     spaceBetween: 30,
     slidesPerView:  3.2
   }
@@ -40,11 +43,11 @@ const Home = () => {
   }, [])
 
 
-
   if (loading) return <Loading />
   if (data?.results)
     return (
       <div className={styles.container}>
+        {modal.visibility && <ModalHome/>}
         <div className={styles.title}>
           <Link to="/recommended">
             <div className={styles.rotaLink}>

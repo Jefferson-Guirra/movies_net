@@ -38,7 +38,7 @@
   grid-template-columns: minmax(100px,200px) minmax(100px,200px) minmax(100px,200px) minmax(100px,200px) minmax(100px,200px);
   justify-content: center;
   align-content: flex-start;
-  gap: 3rem;
+  gap: 3.7rem;
 
 }
 
@@ -64,10 +64,16 @@ color: white;
 overflow: hidden;
 text-overflow: ellipsis;
 }
-@media (max-width:60rem){
+@media (max-width:40rem){
   .cards{
     grid-template-columns: minmax(100px,200px) minmax(100px,200px) minmax(100px,200px);
     gap: 1rem;
+  }
+}
+@media (max-width:70rem){
+  .cards{
+    grid-template-columns: minmax(100px,200px) minmax(100px,200px) minmax(100px,200px);
+    gap: 3.7rem;
   }
 }
 

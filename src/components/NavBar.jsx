@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { BiCameraMovie, BiSearchAlt2 } from 'react-icons/bi'
 import styles from './Styles/NavBar.module.css'
+import { changeStateModal } from '../store/modal'
 
 const NavBar = ({ setControl }) => {
+  const dispatch = useDispatch()
   const [search, setSearch] = useState('')
   const [menu, setMenu] = useState(false)
   const navigate = useNavigate()
@@ -28,7 +31,7 @@ const NavBar = ({ setControl }) => {
     }
   }, [location])
 
-  function handleMenu(event) {
+  function handleMenu() {
     setMenu(menu => !menu)
   }
 
@@ -57,6 +60,7 @@ const NavBar = ({ setControl }) => {
 
         <Link to="/recommended">Recomendados</Link>
         <Link to="/releases">Lançamentos</Link>
+        <a href='#'onClick={()=>dispatch(changeStateModal())}>Gêneros</a>
       </form>
 
       <div

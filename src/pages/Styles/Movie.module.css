@@ -12,16 +12,16 @@
 }
 
 .header{
-  margin-top: 2rem;
   display: grid;
   gap: 2rem;
   padding: 1rem 1rem 2rem 1rem;
-  margin-bottom: 2rem;
   grid-template-columns: 40% 60% ;
   width: 100%;
+  background-color: rgb(18, 18, 18,.8);
 }
 
 .contentHeader{
+  z-index: 20;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -38,7 +38,7 @@
   align-items: center;
   text-align: center;
   justify-content: center;
-  background-color:#121212;
+  background-color:rgb(18, 18, 18,.5);
   padding: .4rem .7rem;
   border-radius: .4rem;
   border: 1px solid #f7d354 ;
@@ -105,6 +105,9 @@
   color: #f7d354;
   padding: 1rem;
 }
+.contentHeader .info{
+    margin-right: 2rem;
+  }
 
 .backTop:hover{
   text-decoration: underline;
@@ -114,7 +117,5 @@
   .info{
     flex-direction: column;
   }
-  .contentHeader .info{
-    margin-right: 2rem;
-  }
+  
 }

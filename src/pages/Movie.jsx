@@ -16,8 +16,7 @@ import { FaStar, FaRegComments } from 'react-icons/fa'
 import Comments from '../components/Comments'
 import Slide from '../components/Slide'
 
-
-const regex =/\-\d{2}/g
+const regex = /\-\d{2}/g
 const moviesUrl = import.meta.env.VITE_API
 const apiKey = import.meta.env.VITE_API_KEY
 const imageUrl = import.meta.env.VITE_IMG
@@ -38,7 +37,6 @@ const Movie = () => {
   useEffect(() => {
     const movieUrl = `${moviesUrl}${id}?${apiKey}&language=pt-BR`
     getMovie(movieUrl)
-    
   }, [id])
 
   const formatCurrency = number => {
@@ -47,46 +45,57 @@ const Movie = () => {
       currency: 'USD'
     })
   }
- 
+
+
   if (loading) return <Loading />
   if (movie)
     return (
       <div className={styles.movieContainer}>
-        <div className={styles.header}>
-          <Image src={imageUrl + movie.poster_path} alt={movie.title} />
+        <div
+          style={{
+            backgroundImage: `url(${imageUrl}${movie.backdrop_path})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'left left',
+            backgroundSize: 'cover',
+            marginTop: '2rem'
+          }}
+        >
+          <div className={styles.header}>
+            <Image src={imageUrl + movie.poster_path} alt={movie.title} />
 
-          <div className={styles.contentHeader}>
-            <h3>{movie.title}</h3>
-            <p>{movie.tagline}</p>
-            <p>{movie.release_date.replace(regex, '')}</p>
-            <p className={styles.movieStar}>
-              {' '}
-              <FaStar /> {movie.vote_average}
-            </p>
-            <div className={styles.genres}>
-              {movie.genres.map(genre => (
-                <div key={genre.name}>{genre.name}</div>
-              ))}
-            </div>
+            <div className={styles.contentHeader}>
+              <h3>{movie.title}</h3>
+              <p>{movie.tagline}</p>
+              <p>{movie.release_date.replace(regex, '')}</p>
+              <p className={styles.movieStar}>
+                {' '}
+                <FaStar /> {movie.vote_average}
+              </p>
+              <div className={styles.genres}>
+                {movie.genres.map(genre => (
+                  <div key={genre.name}>{genre.name}</div>
+                ))}
+              </div>
 
-            <div className={styles.info}>
-              <h3>
-                <BsWallet2 /> Orçamento:
-              </h3>
-              <p>{formatCurrency(movie.budget)}</p>
-            </div>
+              <div className={styles.info}>
+                <h3>
+                  <BsWallet2 /> Orçamento:
+                </h3>
+                <p>{formatCurrency(movie.budget)}</p>
+              </div>
 
-            <div className={styles.info}>
-              <h3>
-                <BsGraphUp /> Receita:
-              </h3>
-              <p>{formatCurrency(movie.revenue)}</p>
-            </div>
-            <div className={styles.info}>
-              <h3>
-                <BsHourglassSplit /> Duração:
-              </h3>
-              <p>{movie.runtime} minutos</p>
+              <div className={styles.info}>
+                <h3>
+                  <BsGraphUp /> Receita:
+                </h3>
+                <p>{formatCurrency(movie.revenue)}</p>
+              </div>
+              <div className={styles.info}>
+                <h3>
+                  <BsHourglassSplit /> Duração:
+                </h3>
+                <p>{movie.runtime} minutos</p>
+              </div>
             </div>
           </div>
         </div>

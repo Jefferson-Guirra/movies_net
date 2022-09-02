@@ -13,8 +13,7 @@ body{
   background-color: #111;
   color: white;
   overflow-x: hidden;
-  padding-top: 1rem;
- 
+  margin-top: 5rem;
 }
 a{
   text-decoration: none;

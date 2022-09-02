@@ -1,0 +1,51 @@
+.container{
+  position: absolute;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  background-color: #121212;
+  transform: translate3d(0px,-300px,0);
+  animation: show-modal .5s forwards;
+}
+
+.outModal{
+  text-align: right;
+}
+.genres{
+  text-align: center;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  align-content: center;
+}
+
+.genres .genre{
+  text-align: center;
+  margin-bottom: 2rem;
+  /*background-color: green;*/
+}
+
+.container button{
+  padding: .5rem .7rem;
+  border-radius: 50%;
+  background: black;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #f7d354;
+  color: black;
+  border: none;
+}
+
+
+@keyframes show-modal{
+  to{
+    transform: initial;
+  }
+
+}

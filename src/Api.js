@@ -52,3 +52,9 @@ export function RECOMMENDED_MOVIE(apiKey,page = 1){
       url:`${URL_API}/${id}/videos?${apikey}`
     }
   }
+
+  export function GET_GENRE_MOVIE(apikey){
+    return{
+      url:`https://api.themoviedb.org/3/genre/movie/list?${apikey}&language=pt-BR`
+    }
+  }

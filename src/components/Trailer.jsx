@@ -17,7 +17,6 @@ const Trailer = ({id}) => {
   const keyTrailer = data?.results[0].key
   const urlYoutube = 'https://www.youtube.com/watch?v=' + keyTrailer
 
-  console.log(urlYoutube)
   if(data?.results && keyTrailer && urlYoutube) 
   return (
     <div className={styles.trailer}>
