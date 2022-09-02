@@ -58,9 +58,13 @@ const NavBar = ({ setControl }) => {
           </button>
         </div>
 
-        <Link to="/recommended">Recomendados</Link>
+        <Link to="/popular">Populares</Link>
         <Link to="/releases">Lançamentos</Link>
-        <a href='#'onClick={()=>dispatch(changeStateModal())}>Gêneros</a>
+        <Link to="/top-movies">Top Filmes</Link>
+
+        <a href="#" onClick={() => dispatch(changeStateModal())}>
+          Gêneros
+        </a>
       </form>
 
       <div

@@ -11,6 +11,7 @@
 .container .rotaLink h2{
   border-left: 3px solid #f7d354;
   padding-left: 0.5rem;
+  margin-top: 1rem;
   transition: 1s;
   color: white;
   

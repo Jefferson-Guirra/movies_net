@@ -28,15 +28,20 @@
 }
 
 .genres{
-  display: grid;
-  grid-template-columns: 50% 50%;
-  padding-right: 2rem;
+  display: flex;
+  align-content: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  grid-template-columns: 100px 100px;
   gap: .5rem;
+  width: 100%;
+  padding-right: 1rem;
 }
 .genres div{
   display: flex;
   align-items: center;
   text-align: center;
+  width: fit-content;
   justify-content: center;
   background-color:rgb(18, 18, 18,.5);
   padding: .4rem .7rem;
@@ -44,8 +49,6 @@
   border: 1px solid #f7d354 ;
   pointer-events: none;
 }
-
-
 
 .movieStar{
   text-align: center;
@@ -55,8 +58,6 @@
   align-items: center;
   gap: .4rem;
 }
-
-
 
 .info{
   padding-block: 1rem;
@@ -96,7 +97,6 @@
   padding: 1rem;
   border-bottom: 1px solid hsl(47, 91%, 65%,.2);
 }
-
 
 .backTop{
   align-self: center;

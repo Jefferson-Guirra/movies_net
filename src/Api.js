@@ -15,7 +15,7 @@ export function SEARCH_MOVIE(apiKey,query,page){
 }
 
 
-export function RECOMMENDED_MOVIE(apiKey,page = 1){
+export function POPULAR_MOVIES(apiKey,page = 1){
   return{
     url:`https://api.themoviedb.org/3/trending/movie/week?${apiKey}&language=pt-BR&page=${page}`
   }
@@ -56,5 +56,11 @@ export function RECOMMENDED_MOVIE(apiKey,page = 1){
   export function GET_GENRE_MOVIE(apikey){
     return{
       url:`https://api.themoviedb.org/3/genre/movie/list?${apikey}&language=pt-BR`
+    }
+  }
+
+  export function MOVIES_BY_GENRE(apikey,id,page){
+    return {
+      url: `https://api.themoviedb.org/3/discover/movie?${apikey}&with_genres=${id}&page=${page}&language=pt-BR`
     }
   }

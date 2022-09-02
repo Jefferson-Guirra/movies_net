@@ -1,65 +1,44 @@
-import { useEffect, useState, useRef } from 'react'
-import { NEW_MOVIES } from '../Api'
-import Loading from '../components/Loading'
-import MovieCard from '../components/MovieCard'
-import styles from './Styles/Generic.module.css'
+import { useEffect, useRef } from 'react'
+import { useSelector,useDispatch } from 'react-redux'
+import { getNewMovies } from '../store/newMovies'
+import MoviesPage from '../components/MoviesPage'
+import ErrorMessage from '../components/helper/ErrorMessage'
 const apiKey = import.meta.env.VITE_API_KEY
 
 const Releases = () => {
-  const [movies, setMovies] = useState('')
-  const [loading, setLoading] = useState(false)
+  const dispatch = useDispatch()
+  const {data,loading,error} = useSelector(state=>state.newMovies)
   const page = useRef(1)
-  let wait = false
-  const getNewMovie = async (apiKey, page = 1) => {
-    setLoading(true)
-    const { url } = NEW_MOVIES(apiKey, page)
-    const response = await fetch(url)
-    const data = await response.json()
-    setMovies(data)
-    setLoading(false)
-  }
+  let wait = useRef(false)
 
   useEffect(() => {
-    if (!wait) {
-      getNewMovie(apiKey)
+    if (!wait.current) {
+      dispatch(getNewMovies({keyMovie:apiKey,page:2}))
     }
+    wait.current = true
   }, [])
 
-  function handleClick(event) {
-    if (event.target.value === 'next') {
+  function handleClick(value) {
+    if (value === 'next') {
       page.current = page.current + 1
-      getNewMovie(apiKey, page.current)
+      dispatch(getNewMovies({keyMovie:apiKey,page:page.current}))
       setTimeout(() => {
-        movies ? window.scrollTo(0, 0) : ''
+        window.scrollTo(0, 0)
       }, 200)
     } else {
-      if (page.current > 1) {
+      if (page.current > 1 && value === 'prev') {
         page.current = page.current - 1
-        getNewMovie(apiKey, page.current)
+        dispatch(getNewMovies({keyMovie:apiKey,page:page.current}))
         setTimeout(() => {
-          movies ? window.scrollTo(0, 0) : ''
+          window.scrollTo(0, 0) 
         }, 200)
       }
     }
   }
-
-  if (loading) return <Loading />
-  if (movies)
+    if(error) return <ErrorMessage />
     return (
-      <div className={styles.container}>
-        <h2 className={styles.title}>Lançamentos</h2>
-        <MovieCard data={movies} />
-        <div className={styles.buttons}>
-          <button value="prev" onClick={handleClick}>
-            prev
-          </button>
-          <button value="next" onClick={handleClick}>
-            next
-          </button>
-        </div>
-      </div>
+      <MoviesPage data={data} handleClick={handleClick} title={'Lançamentos'} loading={loading}  />
     )
-  else return null
 }
 
 export default Releases

@@ -14,7 +14,7 @@ const Trailer = ({id}) => {
   useEffect(()=>{
     getTrailerMovie()
   },[])
-  const keyTrailer = data?.results[0].key
+  const keyTrailer = data?.results[0]?.key
   const urlYoutube = 'https://www.youtube.com/watch?v=' + keyTrailer
 
   if(data?.results && keyTrailer && urlYoutube) 

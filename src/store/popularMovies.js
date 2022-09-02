@@ -1,8 +1,8 @@
 import CreateAsyncSlice from './helper/CreateAsyncSlice'
-import { RECOMMENDED_MOVIE } from '../Api'
+import { POPULAR_MOVIES} from '../Api'
 const slice = CreateAsyncSlice({
   name: 'popularMovies',
-  fetchConfig: ({ apiKey, page }) => RECOMMENDED_MOVIE(apiKey,page)
+  fetchConfig: ({ apiKey, page }) => POPULAR_MOVIES(apiKey,page)
 })
 
 export const fetchPopularMovies = slice.asynAction

@@ -8,7 +8,7 @@ import Slider from '../components/Slider'
 import { fetchPopularMovies } from '../store/popularMovies'
 import Image from '../components/helper/Image'
 import MovieCardHome from '../components/MovieCardHome'
-import ModalHome from '../components/ModalHome'
+
 
 
 const apiKey = import.meta.env.VITE_API_KEY
@@ -16,7 +16,7 @@ const imageUrl = import.meta.env.VITE_IMG
 let cardsHome
 
 const Home = () => {
-  const { popularMovies,modal } = useSelector(state => state)
+  const { popularMovies } = useSelector(state => state)
   const dispatch = useDispatch()
   const overflow = 'false'
   const wait = useRef(false)
@@ -47,9 +47,8 @@ const Home = () => {
   if (data?.results)
     return (
       <div className={styles.container}>
-        {modal.visibility && <ModalHome/>}
         <div className={styles.title}>
-          <Link to="/recommended">
+          <Link to="/popular">
             <div className={styles.rotaLink}>
               <h2>Populares</h2>
             </div>

@@ -14,7 +14,7 @@ const Search = () => {
   const dispatch = useDispatch()
   const query = params.get('q')
   const page = useRef(1)
-  const { data, loading } = useSelector(state => state.searchMovie)
+  const { data, loading} = useSelector(state => state.searchMovie)
   let wait = false
   useEffect(() => {
     if (!wait && query) {

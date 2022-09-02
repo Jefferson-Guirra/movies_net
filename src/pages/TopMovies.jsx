@@ -5,10 +5,11 @@ import { topMovies } from '../store/topRatedMovies'
 import MovieCard from '../components/MovieCard'
 import styles from './Styles/Generic.module.css'
 import MoviesPage from '../components/MoviesPage'
+import ErrorMessage from '../components/helper/ErrorMessage'
 
 const apiKey = import.meta.env.VITE_API_KEY
 const TopMovies = () => {
-  const {data,loading} = useSelector((state)=>state.topRatedMovies)
+  const {data,loading,error} = useSelector((state)=>state.topRatedMovies)
   const page = useRef(2)
   const dispatch = useDispatch()
   let wait = useRef(false)
@@ -42,9 +43,9 @@ const TopMovies = () => {
       }
     }
   
-  if(loading) return  <Loading />
-  else return(
-    <MoviesPage handleClick={handleClick} data={data} loading={loading} />
+  if(error)return <ErrorMessage />
+  return(
+    <MoviesPage handleClick={handleClick} data={data} loading={loading} title={'Melhores Filmes'} />
   )
 }
 

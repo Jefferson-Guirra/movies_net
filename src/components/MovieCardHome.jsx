@@ -6,6 +6,7 @@ import { topMovies } from '../store/topRatedMovies'
 import { getNewMovies } from '../store/newMovies'
 import Image from './helper/Image'
 import Title from './Title'
+import { IoIosArrowForward } from 'react-icons/io'
 
 const apikey = import.meta.env.VITE_API_KEY
 const imageUrl = import.meta.env.VITE_IMG
@@ -30,7 +31,7 @@ const MovieCardHome = ({ title, rota, content }) => {
       <div className={styles.container}>
         <div className={styles.header}>
           <Title rota={rota} title={title} />
-          <Link to={rota}>veja mais...</Link>
+          <Link to={rota}>veja mais <IoIosArrowForward /> </Link>
         </div>
         <div className={styles.cards}>
           {store.topRatedMovies.data.results.map(item => (
@@ -55,7 +56,9 @@ const MovieCardHome = ({ title, rota, content }) => {
         <div className={styles.container}>
           <div className={styles.header}>
             <Title rota={rota} title={title} />
-            <Link to={rota}>veja mais...</Link>
+            <Link to={rota}>
+              veja mais <IoIosArrowForward />
+            </Link>
           </div>
           <div className={styles.cards}>
             {store.newMovies.data.results.map(item => (
