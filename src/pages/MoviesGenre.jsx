@@ -1,14 +1,16 @@
 import { useState,useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import { MOVIES_BY_GENRE } from '../Api'
+import ErrorMessage from '../components/helper/ErrorMessage'
 import MoviesPage from '../components/MoviesPage'
 
 
 const apiKey = import.meta.env.VITE_API_KEY
 
-const MoviesGenre = ({genreTitle}) => {
+const MoviesGenre = () => {
   const [data,setData] = useState()
   const [loading,setLoading] = useState(false)
+  const [error,setError] = useState(null)
   const page = useRef(1)
   const {id,genre} = useParams()
 
@@ -18,11 +20,13 @@ const MoviesGenre = ({genreTitle}) => {
 
   const getMoviesGenre= async (apiKey,id)=>{
     const {url} = MOVIES_BY_GENRE(apiKey,id)
-    setLoading(true)
-    const response = await fetch(url)
-    const data = await response.json()
-    setData(data)
-    setLoading(false)
+      setLoading(true)
+      const response = await fetch(url)
+      const data = await response.json()
+      setData(data)
+      setLoading(false)
+
+ 
   }
    
   function handleClick(value) {
@@ -43,9 +47,8 @@ const MoviesGenre = ({genreTitle}) => {
     }
   }
 
-  
-  console.log(genre)
-  return (
+  if(error) return <ErrorMessage error={error}/>
+  else return (
     <MoviesPage data={data} loading={loading} handleClick={handleClick} title={genre} />
   )
 }

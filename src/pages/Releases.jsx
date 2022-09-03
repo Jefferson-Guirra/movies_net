@@ -12,6 +12,7 @@ const Releases = () => {
   let wait = useRef(false)
 
   useEffect(() => {
+    window.scrollTo()
     if (!wait.current) {
       dispatch(getNewMovies({keyMovie:apiKey,page:2}))
     }
@@ -35,7 +36,7 @@ const Releases = () => {
       }
     }
   }
-    if(error) return <ErrorMessage />
+    if(error) return <ErrorMessage error={error} />
     return (
       <MoviesPage data={data} handleClick={handleClick} title={'Lançamentos'} loading={loading}  />
     )

@@ -35,7 +35,7 @@ const Recommended = () => {
     }
     wait = true
   }, [])
-    if(error) return <ErrorMessage />
+    if(error) return <ErrorMessage error={error} />
     return(
     <MoviesPage title={'Populares'} data={data} loading={loading} handleClick={handleClick} />
     )

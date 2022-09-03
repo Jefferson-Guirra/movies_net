@@ -9,7 +9,7 @@ import MoviesPage from '../components/MoviesPage'
 
 const apiKey = import.meta.env.VITE_API_KEY
 
-const Search = () => {
+const Search = ({searchMovie}) => {
   const params = new URLSearchParams(window.location.search)
   const dispatch = useDispatch()
   const query = params.get('q')
@@ -17,6 +17,7 @@ const Search = () => {
   const { data, loading} = useSelector(state => state.searchMovie)
   let wait = false
   useEffect(() => {
+    window.scrollTo(0,0)
     if (!wait && query) {
       dispatch(fetchSearch({ searchKey:apiKey, query, page: page.current }))
     }
@@ -42,7 +43,7 @@ const Search = () => {
       }
     }
   }
-
+  
   if (data?.results.length === 0)
     return (
       <div className={styles.containerError}>
@@ -55,7 +56,7 @@ const Search = () => {
   if (loading) return <Loading />
   else
     return (
-      <MoviesPage handleClick={handleClick} data={data} loading={loading} />
+      <MoviesPage handleClick={handleClick} data={data} loading={loading} title={searchMovie} />
     )
   
 }

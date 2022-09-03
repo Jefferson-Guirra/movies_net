@@ -1,23 +1,24 @@
-import { useEffect, useRef,memo, useMemo } from 'react'
+import { useEffect, useRef,memo} from 'react'
 import { useSelector, useDispatch } from 'react-redux/es/exports'
 import styles from './Styles/Home.module.css'
 import { Link } from 'react-router-dom'
 import { SwiperSlide } from 'swiper/react'
 import Loading from '../components/Loading'
-import Slider from '../components/Slider'
+import Slider from '../components/SliderHome'
 import { fetchPopularMovies } from '../store/popularMovies'
 import Image from '../components/helper/Image'
 import MovieCardHome from '../components/MovieCardHome'
 import { getNewMovies } from '../store/newMovies'
 import { topMovies } from '../store/topRatedMovies'
 import { IoIosArrowForward } from 'react-icons/io'
+import ErrorMessage from '../components/helper/ErrorMessage'
 
 const apiKey = import.meta.env.VITE_API_KEY
 const imageUrl = import.meta.env.VITE_IMG
 
 const Home = () => {
   const { popularMovies } = useSelector(state => state)
-  const { loading, data } = popularMovies
+  const { loading, data,  error } = popularMovies
   const dispatch = useDispatch()
   const overflow = 'false'
   const wait = useRef(false)
@@ -47,6 +48,7 @@ const Home = () => {
   }
 
   if (loading) return <Loading />
+  if(error) return <ErrorMessage error={error} />
   if (data?.results)
     return (
       <div className={styles.container}>
@@ -96,7 +98,7 @@ const Home = () => {
         )}
       </div>
     )
-  else return null
+ 
 }
 
 export default memo(Home)

@@ -5,7 +5,7 @@ import { BiCameraMovie, BiSearchAlt2 } from 'react-icons/bi'
 import styles from './Styles/NavBar.module.css'
 import { changeStateModal } from '../store/modal'
 
-const NavBar = ({ setControl }) => {
+const NavBar = ({ setSearchMovie }) => {
   const dispatch = useDispatch()
   const [search, setSearch] = useState('')
   const [menu, setMenu] = useState(false)
@@ -19,7 +19,7 @@ const NavBar = ({ setControl }) => {
     }
     if (!search) return
     else {
-      setControl(search)
+      setSearchMovie(search)
       navigate(`/search?q=${search}`)
       setSearch('')
     }

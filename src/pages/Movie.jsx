@@ -15,6 +15,7 @@ import {
 import { FaStar, FaRegComments } from 'react-icons/fa'
 import Comments from '../components/Comments'
 import Slide from '../components/Slide'
+import ErrorMessage from '../components/helper/ErrorMessage'
 
 const regex = /\-\d{2}/g
 const moviesUrl = import.meta.env.VITE_API
@@ -23,19 +24,21 @@ const imageUrl = import.meta.env.VITE_IMG
 
 const Movie = () => {
   const [movie, setMovie] = useState(null)
+  const [error,setError] = useState(null)
   const [loading, setLoading] = useState(false)
   const { id } = useParams()
 
   const getMovie = async url => {
+    setError(false)
     setLoading(true)
     const response = await fetch(url)
     const data = await response.json()
-    setMovie(data)
+    data.status_message ? setError(data.status_message) : setMovie(data)
     setLoading(false)
   }
-
+  
   useEffect(() => {
-    const movieUrl = `${moviesUrl}${id}?${apiKey}&language=pt-BR`
+    const movieUrl = `${moviesUrl}${id}?${apiKey}language=pt-BR`
     getMovie(movieUrl)
   }, [id])
 
@@ -48,6 +51,7 @@ const Movie = () => {
 
 
   if (loading) return <Loading />
+  if(error) return <ErrorMessage error={error}/>
   if (movie)
     return (
       <div className={styles.movieContainer}>

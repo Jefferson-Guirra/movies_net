@@ -17,10 +17,10 @@ import PageNotFound from './pages/PageNotFound'
 
 function App() {
   const { visibility } = useSelector(state => state.modal)
-  const [control, setControl] = useState('')
+  const [searchMovie, setSearchMovie] = useState('')
   return (
     <BrowserRouter>
-      <NavBar setControl={setControl} />
+      <NavBar setSearchMovie={setSearchMovie} />
       {visibility && <ModalGenre />}
       <Routes>
         <Route path="/" element={<Home />} />
@@ -28,7 +28,7 @@ function App() {
         <Route path="top-movies" element={<TopMovies />} />
         <Route path="movie-genre/:genre/:id" element={<MoviesGenre />} />
         <Route path='*' element={<PageNotFound />}/>
-        <Route path="search" element={<Search />} />
+        <Route path="search" element={<Search searchMovie={searchMovie} />} />
         <Route path="popular" element={<Popular />} />
         <Route path="releases" element={<Releases />} />
         <Route path="similar-movies/:id" element={<SimilarMovies />} />

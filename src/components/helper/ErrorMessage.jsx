@@ -3,10 +3,10 @@ import styles from './Styles/errorMessage.module.css'
 import { BiMoviePlay } from 'react-icons/bi'
 
 
-const ErrorMessage = () => {
+const ErrorMessage = ({error}) => {
   return (
     <div className={styles.container}>
-      <h1> <BiMoviePlay /> Error Forbidden</h1>
+      <h1> <BiMoviePlay /> {error}</h1>
     </div>
   )
 }

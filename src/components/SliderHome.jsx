@@ -2,7 +2,7 @@ import { Swiper} from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import './Styles/slider.css'
+import './Styles/sliderHome.css'
 export default function Slider({ children, settings}) {
 
 
