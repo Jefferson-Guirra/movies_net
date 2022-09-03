@@ -48,7 +48,7 @@
   padding: .4rem .7rem;
   border-radius: .4rem;
   border: 1px solid #f7d354 ;
-  pointer-events: none;
+  cursor: pointer;
 }
 
 .movieStar{

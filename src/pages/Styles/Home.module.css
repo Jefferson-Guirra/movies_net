@@ -46,6 +46,9 @@
   color: #000000;
 }
 
+.sliderContainer{
+  padding-right: 2rem;
+}
 
 @media (max-width:50rem){
   .container .title{

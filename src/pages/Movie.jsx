@@ -78,7 +78,9 @@ const Movie = () => {
               </p>
               <div className={styles.genres}>
                 {movie.genres.map(genre => (
-                  <div key={genre.name}>{genre.name}</div>
+                  <Link to={`/movie-genre/${genre.name}/${genre.id}`}>
+                    <div key={genre.id}>{genre.name}</div>
+                  </Link>
                 ))}
               </div>
 

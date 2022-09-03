@@ -63,22 +63,24 @@ const Home = () => {
         </div>
 
         {data && (
-          <Slider  settings={settings}>
-            {data?.results.map(item => (
-              <SwiperSlide key={item.id}>
-                <div className="text">
-                  <p>{item.title}</p>
-                </div>
-                <Link to={`/movie/${item.id}`}>
-                  <Image
-                    overflow={overflow}
-                    src={`${imageUrl}${item.poster_path}`}
-                    alt={item.title}
-                  />
-                </Link>
-              </SwiperSlide>
-            ))}
-          </Slider>
+          <div className={styles.sliderContainer}>
+            <Slider settings={settings}>
+              {data?.results.map(item => (
+                <SwiperSlide key={item.id}>
+                  <div className="text">
+                    <p>{item.title}</p>
+                  </div>
+                  <Link to={`/movie/${item.id}`}>
+                    <Image
+                      overflow={overflow}
+                      src={`${imageUrl}${item.poster_path}`}
+                      alt={item.title}
+                    />
+                  </Link>
+                </SwiperSlide>
+              ))}
+            </Slider>
+          </div>
         )}
 
         {data && (
