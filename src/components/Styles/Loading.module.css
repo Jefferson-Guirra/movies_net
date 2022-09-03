@@ -18,7 +18,7 @@
   overflow: hidden;
   width: 65px;
   height: 70px;
-  background: #000000;
+  background: #333333;
   z-index: -1;
 }
 .loader__filmstrip:before, .loader__filmstrip:after {
