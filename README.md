@@ -11,7 +11,7 @@ Todas as informações contidas foram retiradas da <a href="https://developers.t
 
 <br>
 
-<h4 align="center"><a href="https://movies-net.netlify.app" target="_blank">Clique para visitar o projeto</a></h4>
+<h4 align="center"><a href="https://movies-net-project.netlify.app/" target="_blank">Clique para visitar o projeto</a></h4>
 
 ## 📚 Seções
 
@@ -28,7 +28,7 @@ O site é composto por quatro seções:
 
 ## 🚀  Funcionalidades
 
-O projeto visou o aprendizado e a criação de um website a partir de tais tecnologias:
+O projeto visou a criação de um website a partir de tais tecnologias:
 
 - React;
 - Redux;
@@ -38,6 +38,7 @@ O projeto visou o aprendizado e a criação de um website a partir de tais tecno
 - Api Externa ( TMDB );
 - React-Router-Dom;
 - React-icons ( Biblioteca )
+- Swiper ( Biblioteca )
 
 ---
 
