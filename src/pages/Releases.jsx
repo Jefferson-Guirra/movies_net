@@ -12,7 +12,7 @@ const Releases = () => {
   let wait = useRef(false)
 
   useEffect(() => {
-    window.scrollTo()
+    window.scrollTo(0,0)
     if (!wait.current) {
       dispatch(getNewMovies({keyMovie:apiKey,page:2}))
     }
@@ -27,7 +27,7 @@ const Releases = () => {
         window.scrollTo(0, 0)
       }, 200)
     } else {
-      if (page.current > 1 && value === 'prev') {
+      if (page.current > 2 && value === 'prev') {
         page.current = page.current - 1
         dispatch(getNewMovies({keyMovie:apiKey,page:page.current}))
         setTimeout(() => {

@@ -38,6 +38,7 @@ const Movie = () => {
   }
   
   useEffect(() => {
+    window.scrollTo(0,0)
     const movieUrl = `${moviesUrl}${id}?${apiKey}&language=pt-BR`
     getMovie(movieUrl)
   }, [id])

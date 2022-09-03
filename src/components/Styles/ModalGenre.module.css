@@ -6,14 +6,15 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  
   padding: 2rem;
   background-color: #121212;
   transform: translate3d(0px,-300px,0);
   animation: show-modal .5s forwards;
+  overflow: hidden !important;
 }
-
-.outModal{
+.closeModal{
   text-align: right;
 }
 .genres{

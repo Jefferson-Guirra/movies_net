@@ -18,13 +18,15 @@ const ModalGenre = ({ genreTitle }) => {
     setGenre(data)
   }
   useEffect(() => {
+    document.documentElement.style.overflow='hidden'
     getMoviesGenre()
+    return () => document.documentElement.style.overflow = 'auto'
   }, [])
 
   if (genre)
     return (
       <div className={styles.container}>
-        <div className={styles.outModal}>
+        <div className={styles.closeModal}>
           <button onClick={() => dispatch(changeStateModal())}>
             <img src={Exclude} alt="" />
           </button>

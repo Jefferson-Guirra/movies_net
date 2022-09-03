@@ -31,6 +31,7 @@ const Recommended = () => {
   }
   useEffect(() => {
     if (!wait) {
+      window.scrollTo(0,0)
       dispatch(fetchPopularMovies({apiKey,page:page.current}))
     }
     wait = true

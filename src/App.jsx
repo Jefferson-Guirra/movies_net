@@ -19,22 +19,31 @@ function App() {
   const { visibility } = useSelector(state => state.modal)
   const [searchMovie, setSearchMovie] = useState('')
   return (
-    <BrowserRouter>
-      <NavBar setSearchMovie={setSearchMovie} />
-      {visibility && <ModalGenre />}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="movie/:id" element={<Movie />} />
-        <Route path="top-movies" element={<TopMovies />} />
-        <Route path="movie-genre/:genre/:id" element={<MoviesGenre />} />
-        <Route path='*' element={<PageNotFound />}/>
-        <Route path="search" element={<Search searchMovie={searchMovie} />} />
-        <Route path="popular" element={<Popular />} />
-        <Route path="releases" element={<Releases />} />
-        <Route path="similar-movies/:id" element={<SimilarMovies />} />
-      </Routes>
+    <div className="App">
+      <div className="page-container">
+        <div className="content-wrapper">
+          <BrowserRouter>
+            <NavBar setSearchMovie={setSearchMovie} />
+            {visibility && <ModalGenre />}
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="movie/:id" element={<Movie />} />
+              <Route path="top-movies" element={<TopMovies />} />
+              <Route path="movie-genre/:genre/:id" element={<MoviesGenre />} />
+              <Route path="*" element={<PageNotFound />} />
+              <Route
+                path="search"
+                element={<Search searchMovie={searchMovie} />}
+              />
+              <Route path="popular" element={<Popular />} />
+              <Route path="releases" element={<Releases />} />
+              <Route path="similar-movies/:id" element={<SimilarMovies />} />
+            </Routes>
+          </BrowserRouter>
+        </div>
+      </div>
       <Footer />
-    </BrowserRouter>
+    </div>
   )
 }
 

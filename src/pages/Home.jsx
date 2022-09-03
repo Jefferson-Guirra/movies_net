@@ -1,4 +1,4 @@
-import { useEffect, useRef,memo} from 'react'
+import { useEffect, useRef} from 'react'
 import { useSelector, useDispatch } from 'react-redux/es/exports'
 import styles from './Styles/Home.module.css'
 import { Link } from 'react-router-dom'
@@ -28,6 +28,7 @@ const Home = () => {
   }
   useEffect(() => {
     if ( !wait.current ) {
+      window.scrollTo(0,0)
       getPopularMovies()
     }
     wait.current = true
@@ -84,7 +85,7 @@ const Home = () => {
           <MovieCardHome
             handleDispatch={getNewMoviesData}
             content={'newMovies'}
-            title={'lançamentos'}
+            title={'Lançamentos'}
             rota={'/releases'}
           ></MovieCardHome>
         )}
@@ -101,4 +102,4 @@ const Home = () => {
  
 }
 
-export default memo(Home)
+export default Home

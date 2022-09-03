@@ -15,6 +15,7 @@
   gap: .3rem;
   padding-block: 4rem;
   color: black;
+  bottom: 0;
 }
 
 .footerContent svg{
