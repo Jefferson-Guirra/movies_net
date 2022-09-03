@@ -18,17 +18,4 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  
-}
-
-
-
-.swiper-pagination-bullet-active{
-  background-color: yellow;
-}
-
-.swiper-button-prev,
-.swiper-button-next{
-  color: #718096;
-  
 }

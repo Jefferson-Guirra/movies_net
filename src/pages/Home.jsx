@@ -63,7 +63,7 @@ const Home = () => {
         </div>
 
         {data && (
-          <Slider settings={settings}>
+          <Slider  settings={settings}>
             {data?.results.map(item => (
               <SwiperSlide key={item.id}>
                 <div className="text">
