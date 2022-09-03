@@ -2,8 +2,6 @@ import { useEffect, useRef, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styles from './Styles/MovieCardHome.module.css'
-import { topMovies } from '../store/topRatedMovies'
-import { getNewMovies } from '../store/newMovies'
 import Image from './helper/Image'
 import Title from './Title'
 import { IoIosArrowForward } from 'react-icons/io'
@@ -24,7 +22,7 @@ const MovieCardHome = ({ title, rota, content, handleDispatch }) => {
     }
     wait.current = true
   },[])
-  console.log(data)
+
   if (data)
     return (
       <div className={styles.container}>

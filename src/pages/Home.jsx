@@ -1,4 +1,4 @@
-import { useEffect,useRef,memo} from 'react'
+import { useEffect, useRef,memo, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux/es/exports'
 import styles from './Styles/Home.module.css'
 import { Link } from 'react-router-dom'
@@ -10,49 +10,41 @@ import Image from '../components/helper/Image'
 import MovieCardHome from '../components/MovieCardHome'
 import { getNewMovies } from '../store/newMovies'
 import { topMovies } from '../store/topRatedMovies'
-
-
+import { IoIosArrowForward } from 'react-icons/io'
 
 const apiKey = import.meta.env.VITE_API_KEY
 const imageUrl = import.meta.env.VITE_IMG
 
-
 const Home = () => {
   const { popularMovies } = useSelector(state => state)
-  const {loading, data} = popularMovies
+  const { loading, data } = popularMovies
   const dispatch = useDispatch()
   const overflow = 'false'
   const wait = useRef(false)
-   useEffect(() => {
-    if(wait.current){
-      return
-    }
-     if (!wait.current) {
 
-       getPopularMovies()
-     }
-     wait.current === true
-   }, [])
   const getPopularMovies = () => {
     dispatch(fetchPopularMovies({ apiKey, page: 1 }))
   }
+  useEffect(() => {
+    if ( !wait.current ) {
+      getPopularMovies()
+    }
+    wait.current = true
+  }, [])
 
-  const getNewMoviesData = ()=>{
-    dispatch(getNewMovies({keyMovie:apiKey,page:1}))
+
+  const getNewMoviesData = () => {
+    dispatch(getNewMovies({ keyMovie: apiKey, page: 1 }))
   }
-  const getTopMoviesData = ()=>{
-    dispatch(topMovies({key:apiKey,page:1}))
+  const getTopMoviesData = () => {
+    dispatch(topMovies({ key: apiKey, page: 1 }))
   }
 
- 
-
-  const settings = { //config swiper slide
+  const settings = {
+    //config swiper slide
     spaceBetween: 30,
-    slidesPerView:  3.2
+    slidesPerView: 3.2
   }
-
- 
-
 
   if (loading) return <Loading />
   if (data?.results)
@@ -60,9 +52,10 @@ const Home = () => {
       <div className={styles.container}>
         <div className={styles.title}>
           <Link to="/popular">
-            <div className={styles.rotaLink}>
-              <h2>Populares</h2>
-            </div>
+            <h2>Populares</h2>
+          </Link>
+          <Link to="/popular">
+            veja mais <IoIosArrowForward />{' '}
           </Link>
         </div>
 

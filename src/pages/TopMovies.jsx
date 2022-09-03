@@ -1,9 +1,6 @@
 import { useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import Loading from '../components/Loading'
 import { topMovies } from '../store/topRatedMovies'
-import MovieCard from '../components/MovieCard'
-import styles from './Styles/Generic.module.css'
 import MoviesPage from '../components/MoviesPage'
 import ErrorMessage from '../components/helper/ErrorMessage'
 
@@ -16,7 +13,6 @@ const TopMovies = () => {
 
   
   useEffect(()=>{
-    console.log('ola')
     setTimeout(()=>{
     window.scrollTo(0, 0)
     },150)
@@ -45,7 +41,7 @@ const TopMovies = () => {
   
   if(error)return <ErrorMessage />
   return(
-    <MoviesPage handleClick={handleClick} data={data} loading={loading} title={'Melhores Filmes'} />
+    <MoviesPage handleClick={handleClick} data={data} loading={loading} title={'Top Filmes'} />
   )
 }
 
