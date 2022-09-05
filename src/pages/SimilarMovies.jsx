@@ -7,10 +7,9 @@ import styles from './Styles/SimilarMovies.module.css'
 const apiKey = import.meta.env.VITE_API_KEY
 
 const SimilarMovies = () => {
-  const { id } = useParams()
+  const { id,movie } = useParams()
   const page = useRef(2)
   const [movies, setMovies] = useState('')
-  const [movieTitle, setMovieTitle] = useState('')
   let wait = false
 
   const getSimilarMovies = async (apiKey, page, id) => {
@@ -20,18 +19,10 @@ const SimilarMovies = () => {
     setMovies(data)
   }
 
-  const getMovieTitle = async (apiKey, id) => {
-    const { url } = GET_MOVIE_ID(apiKey, id)
-    const response = await fetch(url)
-    const data = await response.json()
-    setMovieTitle(data)
-  }
-
   useEffect(() => {
     if (!wait) {
       getSimilarMovies(apiKey, 2, id)
       window.scrollTo(0, 0)
-      getMovieTitle(apiKey, id)
     }
     wait = true
   }, [])
@@ -58,7 +49,7 @@ const SimilarMovies = () => {
   else
     return (
       <div className={styles.container}>
-        <h2 className={styles.title}>Títulos Similares á {movieTitle.title}</h2>
+        <h2 className={styles.title}>Títulos Similares á {movie}</h2>
         <MovieCard data={movies} />
         <div className={styles.buttons}>
           <button value="prev" onClick={handleClick}>

@@ -37,7 +37,7 @@ function App() {
               />
               <Route path="popular" element={<Popular />} />
               <Route path="releases" element={<Releases />} />
-              <Route path="similar-movies/:id" element={<SimilarMovies />} />
+              <Route path="similar-movies/:movie/:id" element={<SimilarMovies />} />
             </Routes>
           </BrowserRouter>
         </div>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { COMMENTS_MOVIE } from '../Api'
 import { useState } from 'react'
 import styles from './Styles/Comments.module.css'
@@ -7,9 +7,12 @@ import userNotFound from '../assets/userNotFound.png'
 import { HiOutlineEmojiSad } from 'react-icons/hi'
 import { useEffect } from 'react'
 const apiKey = import.meta.env.VITE_API_KEY
+
 const Comments = ({ id }) => {
   const regex = /T\d{2}:\d{2}:\d{2}.\d+\D/g
   const [comments, setComents] = useState('')
+  let wait = useRef(false)
+
 
   const getComments = async (apiKey, id) => {
     const { url } = COMMENTS_MOVIE(apiKey, id)
@@ -18,10 +21,12 @@ const Comments = ({ id }) => {
     setComents(comments)
   }
   useEffect(()=>{
-    getComments(apiKey,id)
-  })
-  
-  if (comments.results)
+    if(!wait.current){
+      getComments(apiKey, id)
+    }
+    wait.current = true
+  },[])
+  if (comments?.results?.length)
     return (
       <div className={styles.commentsContainer}>
         {comments.results.map(user => (

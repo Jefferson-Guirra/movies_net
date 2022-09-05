@@ -2,12 +2,14 @@
 
 .container{
   height: 98vh;
+  text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .loader__text {
-  margin: 5px auto;
+  margin-top: 5px;
+  margin-left: -2.7px;
   color: #f7d354;
   text-align: center;
   text-transform: uppercase;

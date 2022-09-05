@@ -78,8 +78,11 @@ const Movie = () => {
               </p>
               <div className={styles.genres}>
                 {movie.genres.map(genre => (
-                  <Link to={`/movie-genre/${genre.name}/${genre.id}`}>
-                    <div key={genre.id}>{genre.name}</div>
+                  <Link
+                    key={genre.id}
+                    to={`/movie-genre/${genre.name}/${genre.id}`}
+                  >
+                    <div>{genre.name}</div>
                   </Link>
                 ))}
               </div>
@@ -120,7 +123,7 @@ const Movie = () => {
         >
           <h3>
             <TbMovie />{' '}
-            <Link to={`/similar-movies/${id}`}>
+            <Link to={`/similar-movies/${movie.title}/${id}`}>
               Títulos Similares a {movie.title}
             </Link>
           </h3>
