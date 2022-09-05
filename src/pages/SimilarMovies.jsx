@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
-import { GET_MOVIE_ID, SIMILAR_MOVIES } from '../Api'
+import {SIMILAR_MOVIES } from '../Api'
 import Loading from '../components/Loading'
 import MovieCard from '../components/MovieCard'
 import styles from './Styles/SimilarMovies.module.css'
