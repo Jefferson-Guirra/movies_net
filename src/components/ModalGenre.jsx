@@ -11,6 +11,7 @@ const apiKey = import.meta.env.VITE_API_KEY
 const ModalGenre = ({ genreTitle }) => {
   const [genre, setGenre] = useState()
   const dispatch = useDispatch()
+  
   const getMoviesGenre = async () => {
     const { url } = GET_GENRE_MOVIE(apiKey)
     const response = await fetch(url)
