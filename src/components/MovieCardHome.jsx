@@ -30,6 +30,7 @@ const MovieCardHome = ({ title, rota, content, handleDispatch }) => {
           <Title rota={rota} title={title} />
           <Link to={rota}>veja mais <IoIosArrowForward /> </Link>
         </div>
+        
         <div className={styles.cards}>
           {data.results.map(item => (
             <div className={styles.card} key={item.id}>

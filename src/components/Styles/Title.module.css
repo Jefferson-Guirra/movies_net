@@ -2,6 +2,7 @@
   margin-left: -4px;
 }
 .container .title{
+  font-size: 3rem;
   border-left: 3px solid #f7d354;
   padding-left: 0.5rem;
   transition: 1s;
@@ -27,3 +28,9 @@
   border: initial;
   color: #f7d354;
 }
+
+@media (max-width:30rem){
+    .container .title{
+      font-size: 1.5rem;
+    }
+  }

@@ -10,7 +10,6 @@ const TopMovies = () => {
   const page = useRef(2)
   const dispatch = useDispatch()
   let wait = useRef(false)
-
   
   useEffect(()=>{
     setTimeout(()=>{
@@ -41,7 +40,7 @@ const TopMovies = () => {
   
   if(error)return <ErrorMessage />
   return(
-    <MoviesPage handleClick={handleClick} data={data} loading={loading} title={'Top Filmes'} />
+    <MoviesPage handleClick={handleClick} data={data} loading={loading} title={'Melhores Filmes'} />
   )
 }
 

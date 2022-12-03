@@ -1,0 +1,26 @@
+.clipBoard{
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  height: 100%;
+  width: 50px;
+}
+
+.clipBoard::before{
+  transition: 1s;
+  transform: translate3d(0,-40px,0);
+  opacity: 0;
+  display: block;
+  content:'link copiado';
+  background-color: #fff;
+  padding: 0.5rem;
+  border-radius: 12px;
+  width: 100px;
+  right: -30px;
+  position: absolute;
+  color: #111;
+}
+.clipBoard.visibility::before{
+  opacity: initial;
+}
+

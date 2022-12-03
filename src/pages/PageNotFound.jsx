@@ -1,5 +1,6 @@
 import React from 'react'
 import { BiMoviePlay } from 'react-icons/bi'
+import Head from '../components/helper/Head'
 
 
 const PageNotFound = () => {
@@ -13,6 +14,7 @@ const PageNotFound = () => {
         height: '100vh'
       }}
     >
+      <Head title={'Página não encontrada'} />
       <h1 style={{color:'red', display:'flex',alignItems:'center',gap:'.5rem'}}> <BiMoviePlay /> Página não encontrada.</h1>
     </div>
   )

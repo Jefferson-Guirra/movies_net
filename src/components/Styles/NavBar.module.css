@@ -4,13 +4,21 @@
   top: 0;
   left: 0;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
+
   align-items: center;
   padding: 1rem 2rem;
-  background-color: rgb(0, 0, 0,.8);
+  background-color: #000000;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.26);
   backdrop-filter: blur(3px);
 
+}
+.content{
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 32px;
+  max-width: 1300px;
 }
 .title{
   display: flex;
@@ -20,17 +28,21 @@
 .navBar .form{
   position: absolute;
   opacity: 0;
+  transform: translate3d(0px, -20px , 0);
   display: flex;
   flex-direction: column;
-  padding: 1rem;
-  gap: 1rem;
+  gap: 2rem;
+  background-color: #111;
+  right: 0;
+  padding: 2rem 2rem;
   top: 100%;
-  left: 70%;
   width: 30%;
-  height: 100vh;
-  background-color: rgb(0, 0, 0,.8);
+  height: calc(100vh + 3.8rem);
+  border-radius: 4px;
+  border: 1px solid rgba(128, 128, 128, 0.26);
+  border-right: none;
   backdrop-filter: blur(2px);
-  transition: .5s;
+  transition: 1.5s;
   pointer-events: none;
   flex-shrink: 1;
 }
@@ -42,40 +54,84 @@
 }
 
 .search{
+  margin-bottom: 0rem;
   text-align: center;
   display: flex;
   align-items: center;
   justify-items: center;
   width: 100%;
+  height: fit-content;
 }
 
-.search a{
-  align-self: flex-start;
-  justify-self: flex-start;
-}
-.navBar input{
+.navBar .search input{
+  color: white;
   padding: .5rem .8rem;
-  border-radius: 4px;
+  background-color: #111;
   border: none;
-  margin-right: .5rem;
-  width: 13rem;
-}
-.navBar .form button{
-  background-color: #f7d354;
-  border:2px solid #f7d354;
   border-radius: 4px;
+  border: 1px solid rgba(128, 128, 128, 0.201);
+  font-size: 1.3rem;
+  width: 90%;
+  transition: 1s;
+}
+.navBar .form .search button{
+  background-color: #f7d354;
+  width: 10%;
+  border:2px solid #f7d354;
   color: #000000;
   padding: .3rem;
   font-size: 1.2rem;
   display: flex;
   align-items: center;
+  justify-content: center;
+  height: 41px;
   cursor: pointer;
   transition: .4s;
 }
 
-.navBar .form button:hover{
-  background-color: transparent;
-  color: #f7d354;
+.navBar .form .links{
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+  gap: 2rem;
+}
+
+
+.navBar .form .links a {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.3rem;
+  width: 100%;
+  flex-grow: 1;
+  height: 3rem;
+  text-align: center;
+  line-height: 3rem;
+}
+.navBar .form a::after{
+  content: '';
+  opacity: 0;
+  display: block;
+  position: absolute;
+  width: 10%;
+  left: 50%;
+  bottom: -5px;
+  transform: translate3d(-50%,0,0);
+  background-color: #f7d354;
+  height: 2px;
+  z-index: 5000000000;
+  transition: .5s;
+}
+
+.navBar .form a:hover::after{
+  background-color: #f7d354;
+  opacity: initial;
+  width: 50%;
 }
 .menu{
   display: flex;
@@ -87,7 +143,7 @@
 }
 .hamburguer{
   display: block;
-  width: 27px;
+  width: 45px;
   border-top: 2px solid white;
   cursor: pointer;
   transition: .3s;
@@ -97,7 +153,7 @@
 .hamburguer::after{
 content: '';
 display: block;
-width: 27px;
+width: 45px;
 height: 2px;
 background-color: white;
 margin-top: .4rem;
@@ -121,21 +177,36 @@ transition: .5s;
   transform: rotate(-35deg);
 }
 
+@media (max-width:1500px){
+   .navBar .content{
+    padding: 0px;
+  }
+  .navBar .form{
+    width: 40%;
+    padding: 2rem;
+  }
+  .navBar .form a{
+    width: 100%;
+    text-align: left;
+  }
+  .navBar .form .search input{
+    width: 80%;
+  }
+  .navBar .form .search button{
+    width: 20%;
+  }
+  
+}
 @media (max-width:800px){
   .navBar .form{
-    left: 50%;
     width: 50%;
+    padding: 1rem;
   }
-  .form.visibility{
-    transform: initial;
-    opacity: initial;
+}
+@media (max-width: 500px){
+ 
+  .navBar .form{
+    width: 70%;
+    padding: 1rem;
   }
-  .form input{
-    width: 100%;
-    padding: .5rem;
-  }
-  .form button svg{
-   font-size: 1.2rem;
-  }
-
 }

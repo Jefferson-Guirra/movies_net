@@ -11,7 +11,6 @@ const SimilarMovies = () => {
   const page = useRef(2)
   const [movies, setMovies] = useState('')
   let wait = false
-
   const getSimilarMovies = async (apiKey, page, id) => {
     const { url } = SIMILAR_MOVIES(apiKey, page, id)
     const response = await fetch(url)

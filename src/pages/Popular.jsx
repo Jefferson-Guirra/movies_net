@@ -11,7 +11,6 @@ const Recommended = () => {
   const dispatch = useDispatch()
   const {data,loading,error} = useSelector(state=>state.popularMovies)
 
-
   function handleClick(value) {
     if (value === 'next' && page.current < data.total_pages) {
       page.current = page.current + 1

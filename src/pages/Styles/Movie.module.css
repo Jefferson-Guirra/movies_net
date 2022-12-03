@@ -28,6 +28,22 @@
   gap: 1rem;
 }
 
+.addMovieList{
+  color: #fff;
+  background-color:rgb(18, 18, 18,.5);
+  padding: .4rem .7rem;
+  border-radius: .4rem;
+  border: 1px solid #f7d354;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  width: fit-content;
+  gap: 0.2rem;
+  padding: 0.5rem;
+}
+
 .genres{
   display: flex;
   align-content: flex-start;
@@ -83,7 +99,6 @@
 }
 .infoDescription {
   text-align: justify;
-  
   margin-bottom: 1rem;
 }
 .infoDescription p{

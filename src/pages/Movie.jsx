@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState} from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Trailer from '../components/Trailer'
 import styles from './Styles/Movie.module.css'
 import Loading from '../components/Loading'
 import { TbMovie } from 'react-icons/tb'
+import { IoAdd } from 'react-icons/io5'
+import { AiOutlineCheck } from 'react-icons/ai'
 import Image from '../components/helper/Image'
-
+import { doc,getDoc, setDoc } from 'firebase/firestore'
+import { db } from '../services/firebaseConnection'
 import {
   BsGraphUp,
   BsWallet2,
@@ -16,6 +19,7 @@ import { FaStar, FaRegComments } from 'react-icons/fa'
 import Comments from '../components/Comments'
 import Slide from '../components/Slide'
 import ErrorMessage from '../components/helper/ErrorMessage'
+import Head from '../components/helper/Head'
 
 const regex = /\-\d{2}/g
 const moviesUrl = import.meta.env.VITE_API
@@ -24,10 +28,74 @@ const imageUrl = import.meta.env.VITE_IMG
 
 const Movie = () => {
   const [movie, setMovie] = useState(null)
-  const [error,setError] = useState(null)
+  const [favoriteMovie,setFavoriteMovie] = useState(false)
+  const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
   const { id } = useParams()
-
+  const data = JSON.parse(window.localStorage?.getItem('movies_net'))
+  const movieIsFavorite = async()=>{
+    try{
+    setFavoriteMovie(false)
+    const refMoviesList = doc(db, 'movies', data.userId)
+    const response = await getDoc(refMoviesList)
+    const movieList = response.data().moviesList
+    const validate = movieList.findIndex(item=>item.movieId === Number(id))
+    if(validate !== -1){
+      setFavoriteMovie(true)
+    }
+    else{
+      setFavoriteMovie(false)
+    }
+    }catch(err){
+      setFavoriteMovie(false)
+    }
+  
+  }
+  const handleAddMovie = async () => {
+    if (!favoriteMovie && data) {
+      try{
+      const refMoviesList = doc(db, 'movies',data.userId)
+      const response = await getDoc(refMoviesList)
+      const oldListMovies = response.data().moviesList
+      const favoriteMovie = {
+        title: movie.title.toLowerCase(),
+        view: false,
+        movieId: movie.id,
+        movieGenres: movie.genres.map(item=>item.name),
+        cover: imageUrl + movie.poster_path,
+        userId: data.userId,
+        avarage: 0,
+        AddAt: new Date()
+      } 
+      const favoriteListMovie = await setDoc(doc(db, 'movies',data.userId), {
+        moviesList:[...oldListMovies,favoriteMovie]
+      })
+      setFavoriteMovie(true)
+      }catch{
+        const favoriteMovie = {
+          title: movie.title.toLowerCase(),
+          view: false,
+          avarage: 0,
+          movieId: movie.id,
+          movieGenres: movie.genres.map(item => item.name),
+          cover: imageUrl + movie.poster_path,
+          userId: data.userId,
+          AddAt: new Date()
+        } 
+        const favoriteListMovie = await setDoc(
+          doc(db, 'movies', data.userId),
+          {
+            moviesList: [favoriteMovie]
+          }
+        )
+          setFavoriteMovie(true)
+      }
+     
+    }
+    else{
+      alert('É necessario efetuar o login')
+    }
+  }
   const getMovie = async url => {
     setError(false)
     setLoading(true)
@@ -36,11 +104,12 @@ const Movie = () => {
     data.status_message ? setError(data.status_message) : setMovie(data)
     setLoading(false)
   }
-  
+
   useEffect(() => {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0)
     const movieUrl = `${moviesUrl}${id}?${apiKey}&language=pt-BR`
     getMovie(movieUrl)
+    movieIsFavorite()
   }, [id])
 
   const formatCurrency = number => {
@@ -50,12 +119,12 @@ const Movie = () => {
     })
   }
 
-
   if (loading) return <Loading />
-  if(error) return <ErrorMessage error={error}/>
+  if (error) return <ErrorMessage error={error} />
   if (movie)
     return (
       <div className={styles.movieContainer}>
+        <Head title={movie.title} />
         <div
           style={{
             backgroundImage: `url(${imageUrl}${movie.backdrop_path})`,
@@ -72,6 +141,23 @@ const Movie = () => {
               <h3>{movie.title}</h3>
               <p>{movie.tagline}</p>
               <p>{movie.release_date.replace(regex, '')}</p>
+              {favoriteMovie === true ? (
+                <button
+                  onClick={handleAddMovie}
+                  className={styles.addMovieList}
+                >
+                  <AiOutlineCheck />
+                  minha Lista
+                </button>
+              ) : (
+                <button
+                  onClick={handleAddMovie}
+                  className={styles.addMovieList}
+                >
+                  <IoAdd />
+                  minha Lista
+                </button>
+              )}
               <p className={styles.movieStar}>
                 {' '}
                 <FaStar /> {movie.vote_average}

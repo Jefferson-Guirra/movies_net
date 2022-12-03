@@ -12,6 +12,7 @@ import { getNewMovies } from '../store/newMovies'
 import { topMovies } from '../store/topRatedMovies'
 import { IoIosArrowForward } from 'react-icons/io'
 import ErrorMessage from '../components/helper/ErrorMessage'
+import Head from '../components/helper/Head'
 
 const apiKey = import.meta.env.VITE_API_KEY
 const imageUrl = import.meta.env.VITE_IMG
@@ -53,6 +54,7 @@ const Home = () => {
   if (data?.results)
     return (
       <div className={styles.container}>
+        <Head title="Filmes" />
         <div className={styles.title}>
           <Link to="/popular">
             <h2>Populares</h2>

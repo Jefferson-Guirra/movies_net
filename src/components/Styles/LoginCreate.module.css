@@ -1,0 +1,121 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  height: 100%;
+}
+
+.container img {
+  width: 100%;
+  height: calc(100vh + 7rem);
+}
+
+.loginContent {
+  padding: 5rem;
+  display: flex;
+  align-items: flex-start;
+}
+.loginForm {
+  transform: translate3d(-100px,0,0);
+  opacity: 0;
+  animation: to-right .7s forwards;
+  padding: 2rem;
+  border-radius: 6px;
+  flex: 1;
+}
+.loginForm h1 {
+  transform: translate3d(0, -20px, 0);
+  opacity: 0;
+  border-left: 3px solid #f7d354;
+  padding-left: 0.5rem;
+  transition: 1s;
+  width: 100%;
+  cursor: pointer;
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 5rem;
+  animation: show-down 1.5s forwards;
+}
+
+
+
+.loginForm .button {
+  margin-bottom: 2rem;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1.1rem;
+  padding-block: 0.8rem;
+  border-radius: 25px;
+  background-color: #f7d354;
+  border: none;
+}
+
+.loginForm .button:disabled{
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.loginForm a{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width:1000px){
+  .loginContent{
+    padding:3rem;
+  }
+}
+
+@media (max-width:865px){
+  .container{
+    height:calc(100vh + 3.8rem);
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+  .loginContent{
+    flex: 1;
+    padding: 3rem;
+  }
+  .loginForm{
+    max-width: 800px;
+    background-color: #1e1d1d;
+    padding: 2rem;
+  }
+  .container img{
+    display: none;
+  }
+}
+
+@media (max-width:450px){
+  .loginContent{
+    padding: 2rem;
+  }
+  .loginForm h1 {
+    font-size: 2.2rem;
+  }
+}
+
+@keyframes animate-border {
+  to {
+    left: 0;
+    transform: initial;
+    width: 100%;
+    opacity: initial;
+  }
+}
+
+@keyframes show-down {
+  to {
+    opacity: initial;
+    transform: initial;
+  }
+}
+
+@keyframes to-right{
+  to{
+    transform: initial;
+    opacity: initial;
+  }
+}

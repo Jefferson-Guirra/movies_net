@@ -1,0 +1,139 @@
+.content{
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 3rem;
+}
+.sliderContainer{
+  width: 100%;
+  display: flex;
+  transition: 0.7s ease;
+}
+.form {
+  display: flex;
+  align-items: center;
+}
+
+.form input{
+  color: white;
+  padding: .5rem .8rem;
+  background-color: #111;
+  border: none;
+  border-radius: 4px;
+  border: 1px solid rgba(128, 128, 128, 0.201);
+  font-size: 1.3rem;
+  width: 100%;
+  margin-left: auto;
+  transition: 1s;
+}
+
+.form button{
+  background-color: #f7d354;
+  width: 10%;
+  border:2px solid #f7d354;
+  border-radius: 4px;
+  color: #000000;
+  padding: .3rem;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 41px;
+  cursor: pointer;
+  transition: .4s;
+}
+
+.cardMovie{
+  background-color: #141414;
+  border: 1px solid rgba(128, 128, 128, 0.26);
+  padding: 2rem;
+  flex-shrink: 0;
+  width: 30%;
+  margin-inline: 1.65%;
+  border-radius: 4px;
+}
+
+.cardMovie img{
+  max-height: 300px;
+  border-radius: 4px;
+}
+.contentCard{
+  border-top: 2px solid #f7d354;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+}
+.info{
+  margin-block: 0.5rem;
+  display:flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.stars{
+  align-items: center;
+  display: flex;
+}
+.titleMovie{
+  display: -webkit-box;
+-webkit-line-clamp: 1; /** número de linhas que você quer exibir */
+position: relative;
+font-size: .9rem;
+z-index: 2;
+color: white;
+-webkit-box-orient: vertical;
+overflow: hidden;
+text-overflow: ellipsis;
+margin-block: 1rem;
+}
+
+.cardMovie p {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.2rem;
+  color:#f7d354;
+}
+.cardMovie button{
+  cursor: pointer;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 1rem;
+  border:none
+}
+.actions{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.navigation{
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.navigation button{
+  background-color: transparent;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+@media (max-width:1000px){
+  .cardMovie{
+    padding: 1rem;
+  }
+}
+
+@media (max-width:500px){
+  .cardMovie{
+    padding: 0.5rem;
+  }
+  .cardMovie p svg{
+    display: none;
+  }
+}

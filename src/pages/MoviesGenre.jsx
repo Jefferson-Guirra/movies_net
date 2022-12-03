@@ -20,7 +20,6 @@ const MoviesGenre = () => {
 
   const getMoviesGenre= async (apiKey,id)=>{
       const {url} = MOVIES_BY_GENRE(apiKey,id,page.current)
-      console.log(url)
       setLoading(true)
       const response = await fetch(url)
       const data = await response.json()

@@ -1,5 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
-import MovieCard from '../components/MovieCard'
+import { useEffect,useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchSearch } from '../store/searchMovie'
 import styles from './Styles/Search.module.css'
@@ -9,8 +8,9 @@ import MoviesPage from '../components/MoviesPage'
 
 const apiKey = import.meta.env.VITE_API_KEY
 
-const Search = ({searchMovie}) => {
+const Search = () => {
   const params = new URLSearchParams(window.location.search)
+  const {value} = useSelector(state=>state.search)
   const dispatch = useDispatch()
   const query = params.get('q')
   const page = useRef(1)
@@ -22,7 +22,7 @@ const Search = ({searchMovie}) => {
       dispatch(fetchSearch({ searchKey:apiKey, query, page: page.current }))
     }
     wait = true
-  }, [query])
+  }, [value])
 
   
   function handleClick(value) {
@@ -56,7 +56,7 @@ const Search = ({searchMovie}) => {
   if (loading) return <Loading />
   else
     return (
-      <MoviesPage handleClick={handleClick} data={data} loading={loading} title={searchMovie} />
+      <MoviesPage handleClick={handleClick} data={data} loading={loading} title={value} />
     )
   
 }
