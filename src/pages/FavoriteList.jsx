@@ -5,27 +5,32 @@ import { db } from '../services/firebaseConnection'
 import {doc, getDoc} from 'firebase/firestore'
 import Head from '../components/helper/Head'
 import SliderUse from '../components/SliderUse'
+import Loading from '../components/Loading'
 
 const FavoriteList = () => {
   const [movies, setMovies] = React.useState([])
   const [error,setError] = React.useState(false)
+  const [loading,setLoading] = React.useState(false)
   const data = JSON.parse(localStorage.getItem('movies_net'))
   const getMoviesList = async () => {
+    setLoading(true)
     if(data){
       const refMoviesList = doc(db, 'movies', data.userId)
       const movies = await getDoc(refMoviesList)
       const movieList = movies.data()?.moviesList
-      console.log(movieList)
       movieList?.length === 0 | !movieList ? setError('Lista vazia.') : setMovies(movieList)
     }
     else{
       setError('É necessário efetuar o login.')
     }
+    setLoading(false)
   }
 
   React.useEffect(() => {
       getMoviesList()
   }, [])
+  if(loading) return <Loading />
+  else
   return (
     <div className={styles.container}>
       <Head

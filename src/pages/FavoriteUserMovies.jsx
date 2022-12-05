@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom'
 import {MdStarRate} from 'react-icons/md'
 import Head from '../components/helper/Head'
 import SliderUse from '../components/SliderUse'
-import { Link } from 'react-router-dom'
+import Loading from '../components/Loading'
 
 
 const FavoriteList = () => {
@@ -15,6 +15,7 @@ const FavoriteList = () => {
   const [note,setNote] = React.useState('')
   const [avarege,setAvarege] = React.useState(null)
   const [loading,setLoading] = React.useState(false)
+  const [loadingPage,setLoadingPage] = React.useState(false)
   const data = JSON.parse(window.localStorage.getItem('movies_net'))
   const {username,userId} = useParams()
   
@@ -31,7 +32,8 @@ const FavoriteList = () => {
         totalNotes:updateTotalNotes
       })
        await updateDoc(moviesRef, {
-         userAvarege:media
+         userAvarege:media,
+         userVote:votesTot
        })
       setAvarege(media)
       setNote('')
@@ -68,28 +70,35 @@ const FavoriteList = () => {
   }
 
   const getMoviesList = async () => {
-    const refMoviesList = doc(db, 'movies', userId)
-    const data = await getDoc(refMoviesList)
-    const movieList = data.data()?.moviesList
-    if(movieList.length>0){
-      setMovies(movieList) 
-      getUser()
-    }
-    else{
-    const userRef = doc(db, 'users', userId)
-    const moviesRef = doc(db, 'movies', userId)
-    await updateDoc(userRef, {
-      avarege: 0,
-      votes: 0,
-      totalNotes: 0
-    })
-    await updateDoc(moviesRef, {
-      userAvarege: 0,
-      username: username,
-      userId: userId
-    })
-      setMovies([])
-      setAvarege(0)
+    try{
+      setLoadingPage(true)
+      const refMoviesList = doc(db, 'movies', userId)
+      const data = await getDoc(refMoviesList)
+      const movieList = data.data()?.moviesList
+      if(movieList.length>0){
+        setMovies(movieList) 
+        getUser()
+      }
+      else{
+        const userRef = doc(db, 'users', userId)
+        const moviesRef = doc(db, 'movies', userId)
+        await updateDoc(userRef, {
+          avarege: 0,
+          votes: 0,
+          totalNotes: 0
+      })
+      await updateDoc(moviesRef, {
+        userAvarege: 0,
+        username: username,
+        userId: userId
+      })
+        setMovies([])
+        setAvarege(0)
+      }
+    }catch(err){
+      console.log(err)
+    }finally{
+      setLoadingPage(false)
     }
   }
 
@@ -97,6 +106,8 @@ const FavoriteList = () => {
   React.useEffect(() => {
     getMoviesList()
   }, [])
+  if(loadingPage) return <Loading />
+  else
   return (
     <div className={styles.container}>
       <Head title={username[0].toUpperCase() + username.substring(1)} />
