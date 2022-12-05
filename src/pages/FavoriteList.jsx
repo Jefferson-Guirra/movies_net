@@ -8,13 +8,19 @@ import SliderUse from '../components/SliderUse'
 
 const FavoriteList = () => {
   const [movies, setMovies] = React.useState([])
+  const [error,setError] = React.useState(false)
   const data = JSON.parse(localStorage.getItem('movies_net'))
   const getMoviesList = async () => {
-    const refMoviesList = doc(db, 'movies', data.userId)
-    const movies = await getDoc(refMoviesList)
-    const movieList = movies.data()?.moviesList
-    movieList ? setMovies(movieList) : setMovies([])
-  
+    if(data){
+      const refMoviesList = doc(db, 'movies', data.userId)
+      const movies = await getDoc(refMoviesList)
+      const movieList = movies.data()?.moviesList
+      console.log(movieList)
+      movieList?.length === 0 | !movieList ? setError('Lista vazia.') : setMovies(movieList)
+    }
+    else{
+      setError('É necessário efetuar o login.')
+    }
   }
 
   React.useEffect(() => {
@@ -33,10 +39,8 @@ const FavoriteList = () => {
         Minha lista
         <Clipboard data={data} />
       </h1>
-
-      {movies.length > 0 && <SliderUse controls={true} list={movies} />}
-
-  
+      {error && <p style={{ color: '#f31', fontSize: '1.3rem' , marginBottom:'3rem'}}>{error}</p>}
+      {movies?.length > 0 && <SliderUse controls={true} list={movies} />}
     </div>
   )
 }

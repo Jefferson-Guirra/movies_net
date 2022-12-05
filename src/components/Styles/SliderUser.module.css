@@ -3,7 +3,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding-bottom: 3rem;
+  padding-block: 3rem;
 }
 .sliderContainer{
   width: 100%;

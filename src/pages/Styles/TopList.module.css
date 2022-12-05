@@ -18,15 +18,14 @@
   padding-left: 0.5rem;
   transition: 1s;
 }
-
 .title:hover{
   border-left: 3px solid #eee;
 }
-
-.content{
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  padding-block: 3rem;
+.username{
+  cursor: pointer;
+  font-size: 3rem;
+  margin-bottom: 3rem;
+}
+.avarege {
+  color: #f7d354;
 }

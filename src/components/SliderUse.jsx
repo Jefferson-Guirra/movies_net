@@ -46,11 +46,10 @@ const SliderUse = ({list,controls}) => {
        item.movieGenres.includes(select)
      )
    }
-
    const handleDelete = async idMovie => {
      const dataLogin = JSON.parse(window.localStorage.getItem('movies_net'))
      if (dataLogin?.userId && controls) {
-       const newMovies = list.filter(movie => movie.movieId !== idMovie)
+       const newMovies = movies.filter(movie => movie.movieId !== idMovie)
        const newListView = await setDoc(doc(db, 'movies', dataLogin.userId), {
          moviesList: [...newMovies]
        })
@@ -144,6 +143,7 @@ const SliderUse = ({list,controls}) => {
 
   return (
     <>
+      {movies.length === 0 && <p style={{ color: '#f31', fontSize: '1.3rem' , marginBottom:'3rem'}}>Navegue e adicione filmes.</p>}
       <form onSubmit={handleFilter} className={styles.form}>
         <Select
           className={styles.selected}
@@ -170,7 +170,7 @@ const SliderUse = ({list,controls}) => {
             }),
             placeholder: (provided, state) => ({
               textAlign: 'center',
-              width:'100%',
+              width: '100%',
               color: '#eee',
               position: 'absolute'
             }),
@@ -197,13 +197,13 @@ const SliderUse = ({list,controls}) => {
           style={{ transform: `translate(${position}px)` }}
         >
           {filtredMovies.length > 0
-            ? filtredMovies.map(movie => (
+            ? filtredMovies.map((movie,index)=> (
                 <div
                   style={{
                     width: cardMobile ? '80%' : '30%',
                     marginInline: cardMobile ? '10%' : '1,65%'
                   }}
-                  key={movie.movieId}
+                  key={index}
                   className={styles.cardMovie}
                 >
                   <Link to={`/movie/${movie.movieId}`}>
@@ -276,7 +276,7 @@ const SliderUse = ({list,controls}) => {
                   </div>
                 </div>
               ))
-            : list.map(movie => (
+            : movies.map(movie => (
                 <div
                   style={{
                     width: cardMobile ? '80%' : '30%',
@@ -353,7 +353,7 @@ const SliderUse = ({list,controls}) => {
                 </div>
               ))}
         </div>
-        {list.length > 0 && (
+        {movies.length > 0 && (
           <div className={styles.navigation}>
             <button onClick={slidePrev}>
               <IoIosArrowBack size={35} color="#f7d354" />

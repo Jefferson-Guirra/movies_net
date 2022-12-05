@@ -113,7 +113,7 @@ const LoginCreate = () => {
               Cadastrando...
             </button>
           )}
-          <Link to="/">
+          <Link to="/login">
             <IoIosArrowBack size={30} color="#f7d354" />
             voltar
           </Link>

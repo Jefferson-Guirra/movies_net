@@ -7,7 +7,7 @@ import { TbMovie } from 'react-icons/tb'
 import { IoAdd } from 'react-icons/io5'
 import { AiOutlineCheck } from 'react-icons/ai'
 import Image from '../components/helper/Image'
-import { doc,getDoc, setDoc } from 'firebase/firestore'
+import { doc,getDoc, setDoc,updateDoc } from 'firebase/firestore'
 import { db } from '../services/firebaseConnection'
 import {
   BsGraphUp,
@@ -33,6 +33,7 @@ const Movie = () => {
   const [loading, setLoading] = useState(false)
   const { id } = useParams()
   const data = JSON.parse(window.localStorage?.getItem('movies_net'))
+  
   const movieIsFavorite = async()=>{
     try{
     setFavoriteMovie(false)
@@ -56,7 +57,7 @@ const Movie = () => {
       try{
       const refMoviesList = doc(db, 'movies',data.userId)
       const response = await getDoc(refMoviesList)
-      const oldListMovies = response.data().moviesList
+      const {moviesList} = response.data()
       const favoriteMovie = {
         title: movie.title.toLowerCase(),
         view: false,
@@ -67,11 +68,17 @@ const Movie = () => {
         avarage: 0,
         AddAt: new Date()
       } 
-      const favoriteListMovie = await setDoc(doc(db, 'movies',data.userId), {
-        moviesList:[...oldListMovies,favoriteMovie]
-      })
+        const favoriteListMovie = await updateDoc(
+          doc(db, 'movies', data.userId),
+          {
+            moviesList: [...moviesList, favoriteMovie]
+          }
+        )
+      
+
       setFavoriteMovie(true)
-      }catch{
+      }catch(err){
+        console.log(err)
         const favoriteMovie = {
           title: movie.title.toLowerCase(),
           view: false,
@@ -82,17 +89,17 @@ const Movie = () => {
           userId: data.userId,
           AddAt: new Date()
         } 
-        const favoriteListMovie = await setDoc(
-          doc(db, 'movies', data.userId),
-          {
-            moviesList: [favoriteMovie]
-          }
-        )
+        const favoriteListMovie = await setDoc(doc(db, 'movies', data.userId), {
+          userAvarege:0,
+          username: data.username,
+          userId:data.userId,
+          moviesList: [favoriteMovie]
+        })
           setFavoriteMovie(true)
       }
      
     }
-    else{
+    else if (!data){
       alert('É necessario efetuar o login')
     }
   }

@@ -18,7 +18,7 @@
   align-items: center;
   font-size: 3rem;
   border-left: 3px solid #f7d354;
-  padding-left: 0.5rem;
+  padding-left: 1rem;
   transition: 1s;
 }
 
@@ -87,7 +87,10 @@
   cursor: pointer;
   transition: .4s;
 }
-
+.vote button:disabled{
+  opacity: 0.5;
+  cursor: wait;
+}
 .containerAvarege .vote p{
   font-size: 1.3rem;
 }
