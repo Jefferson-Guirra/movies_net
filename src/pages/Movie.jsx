@@ -60,7 +60,8 @@ const Movie = () => {
   
   }
   const handleAddMovie = async () => {
-    if (!favoriteMovie && token) {
+    const usersLogin = await GET_USER_LOGIN(token)
+    if (!favoriteMovie && usersLogin) {
       try{
       const refMoviesList = doc(db, 'movies',user.userId)
       const response = await getDoc(refMoviesList)
@@ -106,7 +107,7 @@ const Movie = () => {
       }
      
     }
-    else if (!token){
+    else if (!usersLogin){
       alert('É necessario efetuar o login')
     }
   }

@@ -3,17 +3,14 @@ import { createSlice } from '@reduxjs/toolkit'
 const slice = createSlice({
   name:'userLogin',
   initialState:{
-    username:"",
-    userId:"",
+    token:null,
   },
   reducers:{
     LOGIN(state,{payload}){
-      state.username = payload.updateUsername
-      state.userId = payload.upadateUserId
+      state.token = payload.token
     },
     LOGOUT(state){
-      state.userId ="",
-      state.username = ""
+      state.token = ""
     }
   }
 })

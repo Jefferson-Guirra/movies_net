@@ -18,8 +18,9 @@ const FavoriteList = () => {
 
   const getMoviesList = async () => {
     setLoading(true)
-    if(token){
-      const userLogin = await GET_USER_LOGIN(token)
+    const userLogin = await GET_USER_LOGIN(token)
+
+    if(token && userLogin){
       const refMoviesList = doc(db, 'movies', userLogin.userId)
       const movies = await getDoc(refMoviesList)
       const movieList = movies.data()?.moviesList
