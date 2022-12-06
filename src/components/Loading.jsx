@@ -1,6 +1,5 @@
 import styles from './Styles/Loading.module.css'
 const Loading = () => {
-  console.log('carregando')
   return (
     <div className={styles.container}>
       <div className={styles.loader}>

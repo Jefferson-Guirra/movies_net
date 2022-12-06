@@ -27,6 +27,7 @@ const SliderUse = ({list,controls}) => {
   const contentRef = React.useRef()
   const count = React.useRef(3)
   const validateSlideActive = React.useRef(3)
+  const wait = React.useRef(false)
   const genreMovies = GenreMovies.map(item => ({
     value: item,
     label: item,
@@ -70,6 +71,7 @@ const SliderUse = ({list,controls}) => {
    const watchMediaQuery = () => {
      let mql = window.matchMedia('(max-width: 800px)')
      if (mql.matches) {
+        console.log('passou')
        setCardMobile(true)
        validateSlideActive.current = 1
        count.current = 1
@@ -137,13 +139,23 @@ const SliderUse = ({list,controls}) => {
    }, [active])
 
    React.useEffect(() => {
-     watchMediaQuery()
+      window.addEventListener('resize', watchMediaQuery)
+      watchMediaQuery()
+
+     
+     return ()=>{
+      window.removeEventListener('resize',watchMediaQuery)
+     }
    }, [])
 
-
+   
   return (
     <>
-      {movies.length === 0 && <p style={{ color: '#f31', fontSize: '1.3rem' , marginBottom:'3rem'}}>Navegue e adicione filmes.</p>}
+      {movies.length === 0 && (
+        <p style={{ color: '#f31', fontSize: '1.3rem', marginBottom: '3rem' }}>
+          Navegue e adicione filmes.
+        </p>
+      )}
       <form onSubmit={handleFilter} className={styles.form}>
         <Select
           className={styles.selected}
@@ -169,7 +181,7 @@ const SliderUse = ({list,controls}) => {
               overflow: 'hidden'
             }),
             placeholder: (provided, state) => ({
-              textAlign: 'center',
+              textAlign: 'left',
               width: '100%',
               color: '#eee',
               position: 'absolute'
@@ -197,7 +209,7 @@ const SliderUse = ({list,controls}) => {
           style={{ transform: `translate(${position}px)` }}
         >
           {filtredMovies.length > 0
-            ? filtredMovies.map((movie,index)=> (
+            ? filtredMovies.map((movie, index) => (
                 <div
                   style={{
                     width: cardMobile ? '80%' : '30%',
@@ -243,7 +255,6 @@ const SliderUse = ({list,controls}) => {
                         </button>
                       </div>
                       <p>
-                        <AiOutlineFolderAdd size={30} />
                         {handleTime(movie.AddAt).toLocaleDateString('pt-br', {
                           day: '2-digit',
                           month: '2-digit',
@@ -253,25 +264,25 @@ const SliderUse = ({list,controls}) => {
                     </div>
                     <div className={styles.actions}>
                       {movie.view ? (
-                        <button
+                        <button className={styles.view}
                           onClick={() => handleView(movie.movieId, false)}
                         >
+                          view
                           <AiOutlineCheck size={25} color="green" />
-                          Visto
                         </button>
                       ) : (
-                        <button onClick={() => handleView(movie.movieId, true)}>
+                        <button className={styles.view} onClick={() => handleView(movie.movieId, true)}>
                           {' '}
-                          <MdClear size={30} color="#f31" />
-                          Visto
+                          view
+                          <MdClear size={25} color="#f31" />
                         </button>
                       )}
-                      <button
+                      {controls && <button
                         onClick={() => handleDelete(movie.movieId)}
                         className={styles.delete}
                       >
                         <AiOutlineDelete size={25} color="#f31" />
-                      </button>
+                      </button>}
                     </div>
                   </div>
                 </div>
@@ -342,13 +353,12 @@ const SliderUse = ({list,controls}) => {
                         Visto
                       </button>
                     )}
-                    <button
+                    {controls && <button
                       onClick={() => handleDelete(movie.movieId)}
                       className={styles.delete}
                     >
                       <AiOutlineDelete size={25} color="#f31" />
-                      Remover
-                    </button>
+                    </button>}
                   </div>
                 </div>
               ))}

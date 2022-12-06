@@ -3,8 +3,9 @@ import { db } from '../services/firebaseConnection'
 import {collection,getDocs,} from 'firebase/firestore'
 import styles  from './Styles/TopList.module.css'
 import SliderUser from '../components/SliderUse'
-import {MdStarRate} from 'react-icons/md'
+import { FaStar } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
+import {MdOutlineLocalMovies} from 'react-icons/md'
 import Loading from '../components/Loading'
 
 const TopList = () => {
@@ -23,10 +24,10 @@ const TopList = () => {
     return 0
   }
     const compareAvarege = (a, b) => {
-      if (a.userAvarege < b.userAvarege) {
+      if (Number(a.userAvarege) < Number(b.userAvarege)) {
         return 1
       }
-      if (a.userAvarege > b.userAvarege) {
+      if (Number(a.userAvarege) > Number(b.userAvarege)) {
         return -1
       }
       return 0
@@ -47,7 +48,8 @@ const TopList = () => {
         const listFormatLength = listData?.filter(item=> item?.moviesList?.length > 0)
         const listFormatVotes = listFormatLength?.sort(compareVotes)
         const listFormatAvarege = listFormatVotes.sort(compareAvarege)
-        listFormatLength?.length > 0 ? setUsersList(listFormatVotes) : ''
+        const finalList = listFormatAvarege.filter((item,index)=> index<10)
+        listFormatLength?.length > 0 ? setUsersList(finalList) : ''
         setLoading(false)
       }
 
@@ -63,11 +65,11 @@ const TopList = () => {
   if(loading)return <Loading />
   if(!loading)
   return (
-    <div className={styles.container}>
+    <main className={styles.container}>
       <h1 className={styles.title}>TOP-LISTAS</h1>
       {usersList?.length > 0 &&
         usersList.map((list, index) => (
-          <div key={index}>
+          <section key={index} className={styles.content}>
             <p
               onClick={() =>
                 handleNavigate(
@@ -77,16 +79,21 @@ const TopList = () => {
               }
               className={styles.username}
             >
-              {usersList[index].username}- 
+              <MdOutlineLocalMovies color="#f7d354" />
+              {usersList[index].username}
+            </p>
+            <div className={styles.info}>
               <span className={styles.avarege}>
                 {usersList[index].userAvarege}
+                <FaStar color="#f7d354" />
               </span>
-              <MdStarRate size={45} color="#f7d354" />
-            </p>
+
+              <p className={styles.vote}>Votos {usersList[index].userVote}</p>
+            </div>
             <SliderUser controls={false} list={usersList[index].moviesList} />
-          </div>
+          </section>
         ))}
-    </div>
+    </main>
   )
 }
 

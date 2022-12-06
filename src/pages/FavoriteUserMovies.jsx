@@ -16,7 +16,7 @@ const FavoriteList = () => {
   const [avarege,setAvarege] = React.useState(null)
   const [loading,setLoading] = React.useState(false)
   const [loadingPage,setLoadingPage] = React.useState(false)
-  const data = JSON.parse(window.localStorage.getItem('movies_net'))
+  const token = window.localStorage.getItem('token')
   const {username,userId} = useParams()
   
   const updateInfoVotes = async(votes,totalNotes) =>{
@@ -24,8 +24,8 @@ const FavoriteList = () => {
       const votesTot = votes + 1
       const updateTotalNotes = totalNotes + Number(note)
       const media = (updateTotalNotes / votesTot).toFixed(1)
-      const userRef = doc(db, 'users', data.userId)
-      const moviesRef = doc(db,'movies',data.userId)
+      const userRef = doc(db, 'users', userId)
+      const moviesRef = doc(db,'movies',userId)
       await updateDoc(userRef, {
         avarege:media,
         votes:votesTot,
@@ -46,8 +46,8 @@ const FavoriteList = () => {
 
   const handleVotes = async (event)=> {
     event.preventDefault()
-    const userLogin = JSON.parse(window.localStorage.getItem('movies_net'))
-   if(userLogin.userId){
+    const token = window.localStorage.getItem('token')
+   if(token){
       try{
       setLoading(true)
       const refMoviesList = doc(db, 'users', userId)
@@ -113,9 +113,9 @@ const FavoriteList = () => {
       <Head title={username[0].toUpperCase() + username.substring(1)} />
       <h1 className={styles.title}>
         {username}
-        <Clipboard data={data} />
+        <Clipboard data={{username,userId}} />
       </h1>
-      {!data?.userId && (
+      {!token && (
         <p style={{ color: '#f31', marginTop: '0.5rem', fontSize: '1.2rem' }}>
           É necessario fazer login para habilitar a votação.
         </p>
@@ -125,7 +125,7 @@ const FavoriteList = () => {
           Lista Vazia.
         </p>
       )}
-      {data?.userId && movies.length > 0 && (
+      {token && movies.length > 0 && (
         <div className={styles.containerAvarege}>
           <div className={styles.avarege}>
             <p>{avarege}</p>

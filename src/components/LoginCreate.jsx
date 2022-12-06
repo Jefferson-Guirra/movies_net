@@ -9,12 +9,14 @@ import Image from './helper/Image'
 import useForm from '../Hooks/useForm'
 import Head from '../components/helper/Head'
 import { v4 as uuid } from 'uuid'
-import {addDoc,collection,query,getDocs,where,setDoc,doc} from 'firebase/firestore'
+import {collection,query,getDocs,where,setDoc,doc} from 'firebase/firestore'
+import { AiFillEye } from 'react-icons/ai'
 import ErrorLogin from '../components/helper/ErrorLogin'
 import {db} from '../services/firebaseConnection'
 const LoginCreate = () => {
   const [error,setError] = React.useState(null)
   const [loading, setLoading] = React.useState(false)
+  const [hidePassword, setHidePassword] = React.useState(false)
   const navigate = useNavigate()
   const username = useForm()
   const email = useForm('email')
@@ -91,7 +93,7 @@ const LoginCreate = () => {
   return (
     <main className={styles.container}>
       <Head title="Cadastre-se" />
-      <Image overflow='true' src={moviesPng} alt="lista de filmes" />
+      <Image overflow="true" src={moviesPng} alt="lista de filmes" />
       <section className={styles.loginContent}>
         <form onSubmit={handleSubmit} className={styles.loginForm}>
           <h1 className="title">Cadastre-se</h1>
@@ -99,12 +101,20 @@ const LoginCreate = () => {
           <Input label="Usuário" name="user" type="text" {...username} />
 
           <Input label="Email" name="email" type="email" {...email} />
-          <Input
-            label={'Senha'}
-            name="password"
-            type="password"
-            {...password}
-          />
+          <div className={styles.password}>
+            <Input
+              name={password}
+              label="Senha"
+              type={hidePassword ? 'text' : 'password'}
+              {...password}
+            />
+            <span
+              onClick={() => setHidePassword(state => !state)}
+              className={styles.hide}
+            >
+              <AiFillEye color='#fff' />
+            </span>
+          </div>
           <ErrorLogin error={error} />
           {!loading ? (
             <button className={styles.button}>Cadastrar</button>

@@ -12,20 +12,27 @@ import {ImManWoman} from 'react-icons/im'
 import styles from './Styles/NavBar.module.css'
 import { changeStateModal } from '../store/modal'
 import {findMovie} from '../store/search'
+import { doc, deleteDoc } from 'firebase/firestore'
+import { db } from '../services/firebaseConnection'
 
 const NavBar = () => {
   const dispatch = useDispatch()
-  let isLogged = localStorage.getItem('movies_net') === null ? false : true
+  let isLogged = localStorage.getItem('token') === null ? false : true
   const [logged,setLogged] = useState(isLogged)
   const [search, setSearch] = useState('')
   const [menu, setMenu] = useState(false)
   const navigate = useNavigate()
+  
   useEffect(()=>{
-    isLogged = localStorage.getItem('movies_net') === null ? false : true
+    isLogged = localStorage.getItem('token') === null ? false : true
     setLogged(isLogged)
   },[isLogged])
-  const handleLogin = ()=>{
-    localStorage.removeItem('movies_net')
+  
+  const handleLogin = async()=>{
+    const token = window.localStorage.getItem('token')
+    await deleteDoc(doc(db, 'usersLogin', token))
+    localStorage.removeItem('token')
+
     setLogged(false)
     setMenu(false)
     navigate('/')

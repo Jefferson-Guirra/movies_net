@@ -38,7 +38,17 @@
 }
 
 
-
+.loginForm .password{
+  position: relative;
+}
+.loginForm .password span{
+  font-size: 1.3rem;
+  position: absolute;
+  z-index: 10;
+  top:40px;
+  cursor: pointer;
+  right: 0;
+}
 .loginForm .button {
   margin-bottom: 2rem;
   cursor: pointer;
@@ -48,6 +58,7 @@
   border-radius: 25px;
   background-color: #f7d354;
   border: none;
+
 }
 
 .loginForm .button:disabled{

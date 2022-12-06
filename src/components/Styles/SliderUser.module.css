@@ -3,7 +3,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding-block: 3rem;
+  margin-top: 3rem;
 }
 .sliderContainer{
   width: 100%;
@@ -18,7 +18,7 @@
 .form input{
   color: white;
   padding: .5rem .8rem;
-  background-color: #111;
+  background-color: transparent;
   border: none;
   border-radius: 4px;
   border: 1px solid rgba(128, 128, 128, 0.201);
@@ -52,6 +52,8 @@
   width: 30%;
   margin-inline: 1.65%;
   border-radius: 4px;
+  color: #eee;
+
 }
 
 .cardMovie img{
@@ -95,7 +97,7 @@ margin-block: 1rem;
   align-items: center;
   justify-content: flex-end;
   gap: 0.2rem;
-  color:#f7d354;
+  color: #eee;
 }
 .cardMovie button{
   cursor: pointer;
@@ -111,6 +113,7 @@ margin-block: 1rem;
   justify-content: space-between;
   width: 100%;
 }
+
 .navigation{
   display: flex;
   justify-content: center;

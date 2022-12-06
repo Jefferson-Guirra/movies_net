@@ -9,24 +9,35 @@ import Input from '../components/Input'
 import { useNavigate } from 'react-router-dom'
 import Head from '../components/helper/Head'
 import { db } from '../services/firebaseConnection'
-import {getDocs,collection,where,query} from 'firebase/firestore'
+import {AiFillEye} from 'react-icons/ai'
+import {getDocs,collection,where,query,setDoc,doc} from 'firebase/firestore'
+import { v4 as uuid } from 'uuid'
+
 const LoginForm = () => {
   const [errorLogin,setErrorLogin] = React.useState(null)
   const [ loading, setLoading] = React.useState(false)
+  const [hidePassword,setHidePassword] = React.useState(false)
   const navigate = useNavigate()
   const email = useForm('email')
   const password = useForm('password')
   
-
+const loginUser = async(userId,username)=>{
+  const keyUser = uuid()
+  localStorage.setItem('token',keyUser)
+  const userLogin = await setDoc(doc(db, 'usersLogin', keyUser), {
+    userId: userId,
+    username
+  })
+}
   const validateUser = (userPassword,userId,username) =>{
     if(userPassword === password.value){
       const user = {
         username : username,
         userId
       }
-      localStorage.setItem('movies_net',JSON.stringify(user))
       setLoading(null)
       navigate('/')
+      loginUser(userId,username)
     }
     else{
       setErrorLogin('Senha incorreta, tente novamente.')
@@ -70,16 +81,36 @@ const LoginForm = () => {
   }
   return (
     <main className={styles.container}>
-      <Head title='Login' description='página de login' />
-      <Image overflow='true' src={moviesPng} alt="lista de filmes" />
+      <Head title="Login" description="página de login" />
+      <Image overflow="true" src={moviesPng} alt="lista de filmes" />
       <section className={styles.loginContent}>
-
         <form onSubmit={handleSubmit} className={styles.loginForm}>
           <h1 className="title">Login</h1>
           <Input name="email" type="email" label="Email" {...email} />
-          <Input name={password} label="Senha" type="password" {...password} />
+          <div className={styles.password}>
+            <Input
+              name={password}
+              label="Senha"
+              type={hidePassword ? 'text' : 'password'}
+              {...password}
+            />
+            <span
+              onClick={() => setHidePassword(state => !state)}
+              className={styles.hide}
+            >
+              <AiFillEye color="#fff" />
+            </span>
+          </div>
           {<ErrorLogin error={errorLogin} />}
-          {!loading ? <button className={styles.button}type="submit">Login</button> : <button disabled className={styles.button}type="submit">entrando...</button> }
+          {!loading ? (
+            <button className={styles.button} type="submit">
+              Login
+            </button>
+          ) : (
+            <button disabled className={styles.button} type="submit">
+              entrando...
+            </button>
+          )}
           <p>
             Ainda não possui conta ? <Link to="/login/criar">Cadastre-se</Link>
           </p>

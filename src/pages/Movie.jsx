@@ -9,6 +9,7 @@ import { AiOutlineCheck } from 'react-icons/ai'
 import Image from '../components/helper/Image'
 import { doc,getDoc, setDoc,updateDoc } from 'firebase/firestore'
 import { db } from '../services/firebaseConnection'
+import { GET_USER_LOGIN } from '../Api'
 import {
   BsGraphUp,
   BsWallet2,
@@ -31,13 +32,18 @@ const Movie = () => {
   const [favoriteMovie,setFavoriteMovie] = useState(false)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [user,setUser] = useState(false)
   const { id } = useParams()
-  const data = JSON.parse(window.localStorage?.getItem('movies_net'))
+  const movieUrl = `${moviesUrl}${id}?${apiKey}&language=pt-BR`
+  const token = window.localStorage?.getItem('token')
   
   const movieIsFavorite = async()=>{
     try{
+    const usersLogin = await GET_USER_LOGIN(token)
+    const {username,userId} = usersLogin
+    setUser(usersLogin)
     setFavoriteMovie(false)
-    const refMoviesList = doc(db, 'movies', data.userId)
+    const refMoviesList = doc(db, 'movies',userId)
     const response = await getDoc(refMoviesList)
     const movieList = response.data().moviesList
     const validate = movieList.findIndex(item=>item.movieId === Number(id))
@@ -48,14 +54,15 @@ const Movie = () => {
       setFavoriteMovie(false)
     }
     }catch(err){
+      console.log(err)
       setFavoriteMovie(false)
     }
   
   }
   const handleAddMovie = async () => {
-    if (!favoriteMovie && data) {
+    if (!favoriteMovie && token) {
       try{
-      const refMoviesList = doc(db, 'movies',data.userId)
+      const refMoviesList = doc(db, 'movies',user.userId)
       const response = await getDoc(refMoviesList)
       const {moviesList} = response.data()
       const favoriteMovie = {
@@ -64,12 +71,12 @@ const Movie = () => {
         movieId: movie.id,
         movieGenres: movie.genres.map(item=>item.name),
         cover: imageUrl + movie.poster_path,
-        userId: data.userId,
+        userId: user.userId,
         avarage: 0,
         AddAt: new Date()
       } 
         const favoriteListMovie = await updateDoc(
-          doc(db, 'movies', data.userId),
+          doc(db, 'movies', user.userId),
           {
             moviesList: [...moviesList, favoriteMovie]
           }
@@ -86,20 +93,20 @@ const Movie = () => {
           movieId: movie.id,
           movieGenres: movie.genres.map(item => item.name),
           cover: imageUrl + movie.poster_path,
-          userId: data.userId,
+          userId: user.userId,
           AddAt: new Date()
         } 
-        const favoriteListMovie = await setDoc(doc(db, 'movies', data.userId), {
+        const favoriteListMovie = await setDoc(doc(db, 'movies', user.userId), {
           userAvarege:0,
-          username: data.username,
-          userId:data.userId,
+          username: user.username,
+          userId:user.userId,
           moviesList: [favoriteMovie]
         })
           setFavoriteMovie(true)
       }
      
     }
-    else if (!data){
+    else if (!token){
       alert('É necessario efetuar o login')
     }
   }
@@ -114,7 +121,6 @@ const Movie = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    const movieUrl = `${moviesUrl}${id}?${apiKey}&language=pt-BR`
     getMovie(movieUrl)
     movieIsFavorite()
   }, [id])
