@@ -4,7 +4,6 @@
   top: 0;
   left: 0;
   width: 100%;
-
   align-items: center;
   padding: 1rem 2rem;
   background-color: #000000;
@@ -37,7 +36,7 @@
   padding: 2rem 2rem;
   top: 100%;
   width: 30%;
-  height: calc(100vh + 3.8rem);
+  height: calc(100vh - 3.8rem);
   border-radius: 4px;
   border: 1px solid rgba(128, 128, 128, 0.26);
   border-right: none;
@@ -45,6 +44,7 @@
   transition: 1.5s;
   pointer-events: none;
   flex-shrink: 1;
+
 }
 
 .form.visibility{

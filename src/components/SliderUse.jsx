@@ -16,6 +16,7 @@ import { TiDeleteOutline } from 'react-icons/ti'
 import { FaStar } from 'react-icons/fa'
 import { MdClear } from 'react-icons/md'
 import Image from './helper/Image'
+import { GET_USER_LOGIN } from '../Api'
 
 const SliderUse = ({list,controls}) => {
   const [movies, setMovies] = React.useState(list)
@@ -48,10 +49,11 @@ const SliderUse = ({list,controls}) => {
      )
    }
    const handleDelete = async idMovie => {
-     const dataLogin = JSON.parse(window.localStorage.getItem('movies_net'))
-     if (dataLogin?.userId && controls) {
+      const token = window.localStorage.getItem('token')
+      const loginUser = await GET_USER_LOGIN(token)
+     if (token && controls) {
        const newMovies = movies.filter(movie => movie.movieId !== idMovie)
-       const newListView = await setDoc(doc(db, 'movies', dataLogin.userId), {
+       const newListView = await setDoc(doc(db, 'movies', loginUser.userId), {
          moviesList: [...newMovies]
        })
        setMovies(newMovies)
@@ -71,7 +73,6 @@ const SliderUse = ({list,controls}) => {
    const watchMediaQuery = () => {
      let mql = window.matchMedia('(max-width: 800px)')
      if (mql.matches) {
-        console.log('passou')
        setCardMobile(true)
        validateSlideActive.current = 1
        count.current = 1
@@ -83,23 +84,25 @@ const SliderUse = ({list,controls}) => {
    }
 
    const handleAvarege = async (movieId, star) => {
-     const dataLogin = JSON.parse(window.localStorage.getItem('movies_net'))
-     if (dataLogin?.userId && controls) {
-       const refMoviesList = doc(db, 'movies', dataLogin.userId)
+      const token = window.localStorage.getItem('token')
+      const loginUser = await GET_USER_LOGIN(token)
+     if (token && controls) {
+       const refMoviesList = doc(db, 'movies', loginUser.userId)
        const response = await getDoc(refMoviesList)
        const movieList = response.data().moviesList
        let newList = movieList
        const index = newList.findIndex(item => item.movieId === movieId)
        newList[index].avarege = star
-       const newListView = await setDoc(doc(db, 'movies', dataLogin.userId), {
+       const newListView = await setDoc(doc(db, 'movies', loginUser.userId), {
          moviesList: [...newList]
        })
        setMovies(newList)
      } 
    }
    const handleView = async (movieId, view) => {
-     const loginUser = JSON.parse(window.localStorage.getItem('movies_net'))
-     if (loginUser?.userId && controls) {
+    const token = window.localStorage.getItem('token')
+     const loginUser = await GET_USER_LOGIN(token)
+     if (token && controls) {
        const refMoviesList = doc(db, 'movies', loginUser.userId)
        const response = await getDoc(refMoviesList)
        const movieList = response.data().moviesList
