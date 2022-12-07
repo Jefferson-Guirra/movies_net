@@ -57,7 +57,7 @@
   padding-block: 0.8rem;
   border-radius: 25px;
   background-color: #f7d354;
-  border: none;
+  border: transparent;
 
 }
 
@@ -80,7 +80,7 @@
 
 @media (max-width:865px){
   .container{
-    height:calc(100vh + 3.8rem);
+    height:100vh;
     align-items: center;
     justify-content: center;
     display: flex;
