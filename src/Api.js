@@ -64,6 +64,7 @@ export function MOVIES_BY_GENRE(apikey, id, page) {
 }
 
 export async function GET_USER_LOGIN (id) {
+  try{
   const docRef = doc(db, 'usersLogin', id)
   const docSnap = await getDoc(docRef)
   if (docSnap.exists()) {
@@ -72,4 +73,7 @@ export async function GET_USER_LOGIN (id) {
     // doc.data() will be undefined in this case
     return null
   }
+}catch{
+  return null
+}
 }

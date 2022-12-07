@@ -10,8 +10,10 @@ import { useNavigate } from 'react-router-dom'
 import Head from '../components/helper/Head'
 import { db } from '../services/firebaseConnection'
 import {AiFillEye} from 'react-icons/ai'
+import { LOGIN } from '../store/userLogin'
 import {getDocs,collection,where,query,setDoc,doc} from 'firebase/firestore'
 import { v4 as uuid } from 'uuid'
+import { useDispatch } from 'react-redux'
 
 const LoginForm = () => {
   const [errorLogin,setErrorLogin] = React.useState(null)
@@ -22,19 +24,14 @@ const LoginForm = () => {
   const password = useForm('password')
   
 const loginUser = async(userId,username)=>{
-  const keyUser = uuid()
-  localStorage.setItem('token',keyUser)
-  const userLogin = await setDoc(doc(db, 'usersLogin', keyUser), {
+  localStorage.setItem('token',userId)
+  const userLogin = await setDoc(doc(db, 'usersLogin', userId), {
     userId: userId,
     username
   })
 }
   const validateUser = (userPassword,userId,username) =>{
     if(userPassword === password.value){
-      const user = {
-        username : username,
-        userId
-      }
       setLoading(null)
       navigate('/')
       loginUser(userId,username)

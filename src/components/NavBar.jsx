@@ -1,7 +1,7 @@
 import { useState, useEffect} from 'react'
 import { MdStarRate } from 'react-icons/md'
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch,useSelector } from 'react-redux'
 import { BiCameraMovie, BiSearchAlt2 } from 'react-icons/bi'
 import { AiOutlineTrophy } from 'react-icons/ai'
 import {MdOutlineFiberNew} from 'react-icons/md'
@@ -15,8 +15,8 @@ import {findMovie} from '../store/search'
 import { doc, deleteDoc } from 'firebase/firestore'
 import { db } from '../services/firebaseConnection'
 
+
 const NavBar = () => {
-  const dispatch = useDispatch()
   let isLogged = localStorage.getItem('token') === null ? false : true
   const [logged,setLogged] = useState(isLogged)
   const [search, setSearch] = useState('')
