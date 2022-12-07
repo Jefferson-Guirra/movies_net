@@ -8,6 +8,7 @@ import {MdStarRate} from 'react-icons/md'
 import Head from '../components/helper/Head'
 import SliderUse from '../components/SliderUse'
 import Loading from '../components/Loading'
+import MessageAlert from '../components/MessageAlert'
 
 
 const FavoriteList = () => {
@@ -16,6 +17,7 @@ const FavoriteList = () => {
   const [avarege,setAvarege] = React.useState(null)
   const [loading,setLoading] = React.useState(false)
   const [loadingPage,setLoadingPage] = React.useState(false)
+  const [alert,setAlert] = React.useState(null)
   const token = window.localStorage.getItem('token')
   const {username,userId} = useParams()
   
@@ -47,7 +49,8 @@ const FavoriteList = () => {
   const handleVotes = async (event)=> {
     event.preventDefault()
     const token = window.localStorage.getItem('token')
-   if(token){
+    const validate = token !== userId
+   if(token && validate){
       try{
       setLoading(true)
       const refMoviesList = doc(db, 'users', userId)
@@ -59,6 +62,12 @@ const FavoriteList = () => {
       }finally{
         setLoading(false)
       }
+    }
+    else{
+      setAlert('Não é permitido votar na própria lista.')
+      setTimeout(() => {
+        setAlert(null)
+      }, 2500)
     }
   }
   
@@ -109,54 +118,57 @@ const FavoriteList = () => {
   if(loadingPage) return <Loading />
   else
   return (
-    <div className={styles.container}>
-      <Head title={username[0].toUpperCase() + username.substring(1)} />
-      <h1 className={styles.title}>
-        {username}
-        <Clipboard data={{username,userId}} />
-      </h1>
-      {!token && (
-        <p style={{ color: '#f31', marginTop: '0.5rem', fontSize: '1.2rem' }}>
-          É necessario fazer login para habilitar a votação.
-        </p>
-      )}
-      {movies.length === 0 && (
-        <p style={{ color: '#f31', marginTop: '0.5rem', fontSize: '1.2rem' }}>
-          Lista Vazia.
-        </p>
-      )}
-      {token && movies.length > 0 && (
-        <div className={styles.containerAvarege}>
-          <div className={styles.avarege}>
-            <p>{avarege}</p>
-            <MdStarRate size={45} color="#f7d354" />
+    <>
+      {alert && <MessageAlert text={alert} />}
+      <div className={styles.container}>
+        <Head title={username[0].toUpperCase() + username.substring(1)} />
+        <h1 className={styles.title}>
+          {username}
+          <Clipboard data={{username,userId}} />
+        </h1>
+        {!token && (
+          <p style={{ color: '#f31', marginTop: '0.5rem', fontSize: '1.2rem' }}>
+            É necessario fazer login para habilitar a votação.
+          </p>
+        )}
+        {movies.length === 0 && (
+          <p style={{ color: '#f31', marginTop: '0.5rem', fontSize: '1.2rem' }}>
+            Lista Vazia.
+          </p>
+        )}
+        {token && movies.length > 0 && (
+          <div className={styles.containerAvarege}>
+            <div className={styles.avarege}>
+              <p>{avarege}</p>
+              <MdStarRate size={45} color="#f7d354" />
+            </div>
+            <div className={styles.vote}>
+              <p>Gostou da lista?</p>
+              <form onSubmit={handleVotes}>
+                <label htmlFor="vote">
+                  <span>Avalie:</span>
+                </label>
+                <input
+                  onChange={handleInput}
+                  value={note}
+                  id="vote"
+                  type="number"
+                  step="0.1"
+                  min={0}
+                  max={10}
+                />
+                {!loading ? (
+                  <button type="submit">Vote</button>
+                ) : (
+                  <button disabled>votando...</button>
+                )}
+              </form>
+            </div>
           </div>
-          <div className={styles.vote}>
-            <p>Gostou da lista?</p>
-            <form onSubmit={handleVotes}>
-              <label htmlFor="vote">
-                <span>Avalie:</span>
-              </label>
-              <input
-                onChange={handleInput}
-                value={note}
-                id="vote"
-                type="number"
-                step="0.1"
-                min={0}
-                max={10}
-              />
-              {!loading ? (
-                <button type="submit">Vote</button>
-              ) : (
-                <button disabled>votando...</button>
-              )}
-            </form>
-          </div>
-        </div>
-      )}
-      {movies.length > 0 && <SliderUse controls={false} list={movies} />}
-    </div>
+        )}
+        {movies.length > 0 && <SliderUse controls={false} list={movies} />}
+      </div>
+    </>
   )
 }
 

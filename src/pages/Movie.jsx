@@ -21,6 +21,7 @@ import Comments from '../components/Comments'
 import Slide from '../components/Slide'
 import ErrorMessage from '../components/helper/ErrorMessage'
 import Head from '../components/helper/Head'
+import MessageAlert from '../components/MessageAlert'
 
 const regex = /\-\d{2}/g
 const moviesUrl = import.meta.env.VITE_API
@@ -33,6 +34,7 @@ const Movie = () => {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
   const [user,setUser] = useState(false)
+  const [alert,setAlert] = useState(null)
   const { id } = useParams()
   const movieUrl = `${moviesUrl}${id}?${apiKey}&language=pt-BR`
   const token = window.localStorage?.getItem('token')
@@ -108,9 +110,13 @@ const Movie = () => {
      
     }
     else if (!usersLogin){
-      alert('É necessario efetuar o login')
+     setAlert('É necessário efetuar login.')
+     setTimeout(()=>{
+      setAlert(null)
+     },2500)
     }
   }
+  
   const getMovie = async url => {
     setError(false)
     setLoading(true)
@@ -137,113 +143,117 @@ const Movie = () => {
   if (error) return <ErrorMessage error={error} />
   if (movie)
     return (
-      <div className={styles.movieContainer}>
-        <Head title={movie.title} />
-        <div
-          style={{
-            backgroundImage: `url(${imageUrl}${movie.backdrop_path})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'left left',
-            backgroundSize: 'cover',
-            marginTop: '2rem'
-          }}
-        >
-          <div className={styles.header}>
-            <Image src={imageUrl + movie.poster_path} alt={movie.title} />
+      <>
+        {alert && <MessageAlert text={alert} />}
 
-            <div className={styles.contentHeader}>
-              <h3>{movie.title}</h3>
-              <p>{movie.tagline}</p>
-              <p>{movie.release_date.replace(regex, '')}</p>
-              {favoriteMovie === true ? (
-                <button
-                  onClick={handleAddMovie}
-                  className={styles.addMovieList}
-                >
-                  <AiOutlineCheck />
-                  minha Lista
-                </button>
-              ) : (
-                <button
-                  onClick={handleAddMovie}
-                  className={styles.addMovieList}
-                >
-                  <IoAdd />
-                  minha Lista
-                </button>
-              )}
-              <p className={styles.movieStar}>
-                {' '}
-                <FaStar /> {movie.vote_average}
-              </p>
-              <div className={styles.genres}>
-                {movie.genres.map(genre => (
-                  <Link
-                    key={genre.id}
-                    to={`/movie-genre/${genre.name}/${genre.id}`}
+        <div className={styles.movieContainer}>
+          <Head title={movie.title} />
+          <div
+            style={{
+              backgroundImage: `url(${imageUrl}${movie.backdrop_path})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'left left',
+              backgroundSize: 'cover',
+              marginTop: '2rem'
+            }}
+          >
+            <div className={styles.header}>
+              <Image src={imageUrl + movie.poster_path} alt={movie.title} />
+
+              <div className={styles.contentHeader}>
+                <h3>{movie.title}</h3>
+                <p>{movie.tagline}</p>
+                <p>{movie.release_date.replace(regex, '')}</p>
+                {favoriteMovie === true ? (
+                  <button
+                    onClick={handleAddMovie}
+                    className={styles.addMovieList}
                   >
-                    <div>{genre.name}</div>
-                  </Link>
-                ))}
-              </div>
+                    <AiOutlineCheck />
+                    minha Lista
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleAddMovie}
+                    className={styles.addMovieList}
+                  >
+                    <IoAdd />
+                    minha Lista
+                  </button>
+                )}
+                <p className={styles.movieStar}>
+                  {' '}
+                  <FaStar /> {movie.vote_average}
+                </p>
+                <div className={styles.genres}>
+                  {movie.genres.map(genre => (
+                    <Link
+                      key={genre.id}
+                      to={`/movie-genre/${genre.name}/${genre.id}`}
+                    >
+                      <div>{genre.name}</div>
+                    </Link>
+                  ))}
+                </div>
 
-              <div className={styles.info}>
-                <h3>
-                  <BsWallet2 /> Orçamento:
-                </h3>
-                <p>{formatCurrency(movie.budget)}</p>
-              </div>
+                <div className={styles.info}>
+                  <h3>
+                    <BsWallet2 /> Orçamento:
+                  </h3>
+                  <p>{formatCurrency(movie.budget)}</p>
+                </div>
 
-              <div className={styles.info}>
-                <h3>
-                  <BsGraphUp /> Receita:
-                </h3>
-                <p>{formatCurrency(movie.revenue)}</p>
-              </div>
-              <div className={styles.info}>
-                <h3>
-                  <BsHourglassSplit /> Duração:
-                </h3>
-                <p>{movie.runtime} minutos</p>
+                <div className={styles.info}>
+                  <h3>
+                    <BsGraphUp /> Receita:
+                  </h3>
+                  <p>{formatCurrency(movie.revenue)}</p>
+                </div>
+                <div className={styles.info}>
+                  <h3>
+                    <BsHourglassSplit /> Duração:
+                  </h3>
+                  <p>{movie.runtime} minutos</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className={styles.infoDescription}>
-          <h3 style={{ marginBottom: '.5rem' }}>
-            <BsFillFileEarmarkTextFill /> Descrição:
-          </h3>
-          <p>{movie.overview}</p>
-        </div>
-        <Trailer id={id} />
-        <div
-          style={{ marginBottom: '1rem', paddingInline: '1rem' }}
-          className={styles.info}
-        >
-          <h3>
-            <TbMovie />{' '}
-            <Link to={`/similar-movies/${movie.title}/${id}`}>
-              Títulos Similares a {movie.title}
-            </Link>
-          </h3>
-        </div>
+          <div className={styles.infoDescription}>
+            <h3 style={{ marginBottom: '.5rem' }}>
+              <BsFillFileEarmarkTextFill /> Descrição:
+            </h3>
+            <p>{movie.overview}</p>
+          </div>
+          <Trailer id={id} />
+          <div
+            style={{ marginBottom: '1rem', paddingInline: '1rem' }}
+            className={styles.info}
+          >
+            <h3>
+              <TbMovie />{' '}
+              <Link to={`/similar-movies/${movie.title}/${id}`}>
+                Títulos Similares a {movie.title}
+              </Link>
+            </h3>
+          </div>
 
-        <Slide id={id} apiKey={apiKey} />
+          <Slide id={id} apiKey={apiKey} />
 
-        <div
-          style={{ marginBottom: '1rem', paddingInline: '1rem' }}
-          className={styles.info}
-        >
-          <h3>
-            <FaRegComments /> Comentários:
-          </h3>
+          <div
+            style={{ marginBottom: '1rem', paddingInline: '1rem' }}
+            className={styles.info}
+          >
+            <h3>
+              <FaRegComments /> Comentários:
+            </h3>
+          </div>
+          <Comments id={movie.id} />
+          <p className={styles.backTop} onClick={() => window.scrollTo(0, 0)}>
+            voltar ao topo
+          </p>
         </div>
-        <Comments id={movie.id} />
-        <p className={styles.backTop} onClick={() => window.scrollTo(0, 0)}>
-          voltar ao topo
-        </p>
-      </div>
+      </>
     )
   else return null
 }
