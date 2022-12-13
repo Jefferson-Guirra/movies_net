@@ -41,6 +41,7 @@
   border: 1px solid rgba(128, 128, 128, 0.26);
   border-right: none;
   backdrop-filter: blur(2px);
+  overflow: auto;
   transition: 1.5s;
   pointer-events: none;
   flex-shrink: 1;
