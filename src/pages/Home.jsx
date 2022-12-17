@@ -1,5 +1,5 @@
 import { useEffect, useRef} from 'react'
-import { useSelector, useDispatch } from 'react-redux/es/exports'
+import { useSelector, useDispatch } from 'react-redux'
 import styles from './Styles/Home.module.css'
 import { Link } from 'react-router-dom'
 import { SwiperSlide } from 'swiper/react'

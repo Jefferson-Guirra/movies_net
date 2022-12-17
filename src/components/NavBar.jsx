@@ -1,6 +1,7 @@
 import { useState, useEffect} from 'react'
 import { MdStarRate } from 'react-icons/md'
 import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { BiCameraMovie, BiSearchAlt2 } from 'react-icons/bi'
 import { AiOutlineTrophy } from 'react-icons/ai'
 import {MdOutlineFiberNew} from 'react-icons/md'
@@ -20,6 +21,7 @@ const NavBar = () => {
   const [logged,setLogged] = useState(isLogged)
   const [search, setSearch] = useState('')
   const [menu, setMenu] = useState(false)
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   
   useEffect(()=>{
