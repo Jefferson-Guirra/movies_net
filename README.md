@@ -26,7 +26,7 @@ O site é composto por quatro seções:
 ---
 <br>
 
-## 🚀  Funcionalidades
+## 🚀  Tecnologias
 
 O projeto visou a criação de um website a partir de tais tecnologias:
 
