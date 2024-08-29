@@ -11,7 +11,7 @@ Todas as informações contidas foram retiradas da <a href="https://developers.t
 
 <br>
 
-<h4 align="center"><a href="https://movies-net-project.netlify.app/" target="_blank">Clique para visitar o projeto</a></h4>
+<h4 align="center"><a href="https://movies-net.netlify.app/" target="_blank">Clique para visitar o projeto</a></h4>
 
 ## 📚 Seções
 
