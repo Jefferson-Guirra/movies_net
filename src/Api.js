@@ -47,7 +47,7 @@ export function GET_MOVIE_ID(apiKey, id) {
 
 export function GET_TRAILER(apikey, id) {
   return {
-    url: `${URL_API}/${id}/videos?${apikey}`
+    url: `${URL_API}${id}/videos?${apikey}`
   }
 }
 
